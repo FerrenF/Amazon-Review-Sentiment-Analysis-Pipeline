@@ -5,7 +5,15 @@ import json
 
 from datasets import load_dataset
 
-outputPath = os.path.join(os.path.abspath(__file__), "../books_data")
+###
+### WARNING:
+###     This script downloads a MASSIVE amount of data from datasets. It takes a LONG time. Please be aware of both.
+###
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+outputPath = os.path.join(script_dir, "../books_data")
+os.makedirs(outputPath, exist_ok=True)
+
 outputSuffix = ".jsonl"
 
 # We are pulling 1000 records from the dataset
