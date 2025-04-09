@@ -13,9 +13,24 @@ project_stages = [
     Stage("loading", [
         LoadDatasetStep()
     ],  on_complete=loading_stage_finished_callback)
+    Stage("cleaning", [
 
+    ]),
+    Stage("processing", [
+
+    ]),
+    Stage("training", [
+
+    ]),
+    Stage("evaluation", [
+
+    ])
 ]
 
+data = dict()
+
 project_pipeline = Pipeline(stages=project_stages)
-project_pipeline.run(dict())
+project_pipeline.run(data)
+
+
 
