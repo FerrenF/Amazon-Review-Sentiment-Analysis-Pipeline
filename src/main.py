@@ -1,6 +1,7 @@
 
 from src.core.pipeline import Pipeline
 from src.core.stage import Stage
+from src.steps.clean_dataset import CleanDatasetStep
 from src.steps.load_dataset import LoadDatasetStep
 from src.utils.write_dataset import write_dataset
 
@@ -15,7 +16,7 @@ project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-
+        CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=loading_stage_finished_callback),
     Stage("cleaning", [
