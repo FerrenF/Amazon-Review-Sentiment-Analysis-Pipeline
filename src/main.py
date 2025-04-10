@@ -1,12 +1,16 @@
 
-from core.pipeline import Pipeline
+from src.core.pipeline import Pipeline
 from src.core.stage import Stage
 from src.steps.load_dataset import LoadDatasetStep
+from src.steps.clean_dataset import CleanDatasetStep
 from src.utils.write_dataset import write_dataset
 
 
 def loading_stage_finished_callback(stage: Stage, _data: dict):
     write_dataset(stage, "data", _data)
+def cleaning_stage_finished_callback(stage: Stage, _data: dict):
+    write_dataset(stage, "data", _data)
+
 
 
 project_stages = [
@@ -14,8 +18,9 @@ project_stages = [
         LoadDatasetStep()
     ],  on_complete=loading_stage_finished_callback),
     Stage("cleaning", [
+        CleanDatasetStep(min_length = 10, max_length = 300)
 
-    ]),
+    ], on_complete=cleaning_stage_finished_callback),
     Stage("processing", [
 
     ]),
