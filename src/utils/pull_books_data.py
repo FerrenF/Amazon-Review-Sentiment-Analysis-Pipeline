@@ -11,13 +11,16 @@ from datasets import load_dataset
 ###
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-outputPath = os.path.join(script_dir, "../books_data")
-os.makedirs(outputPath, exist_ok=True)
+output_path = os.path.join(script_dir, "../books_data_low_review")
+os.makedirs(output_path, exist_ok=True)
 
-outputSuffix = ".jsonl"
+output_suffix = ".jsonl"
 
 # We are pulling 1000 records from the dataset
 pull_total = 1000
+
+# Max rating to filter on (e.g., 3.0 will include 1-3 star reviews only)
+max_rating = 3.0
 
 # And randomizing the records we select
 randomize = True
@@ -25,36 +28,28 @@ randomize = True
 # We are splitting this work among 4 members
 divisions = 4
 
+# Only use first 1 million entries. There are 29 million. You need this.
+sample_size = 1_000_000
+
 # We are using the Amazon Reviews dataset from https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
 # To train our model, we are going to pull the first thousand reviews from the 'books' department of this dataset.
 dataset = load_dataset("McAuley-Lab/Amazon-Reviews-2023", "raw_review_Books", split="full", trust_remote_code=True)
+selected = dataset.select(range(sample_size)).shuffle(seed=42)
 
-filesOut = list()
+# Filter and slice the dataset to get only relevant reviews
+filtered_dataset = selected.filter(lambda x: x.get("rating", 0) <= max_rating)
+selected_reviews = filtered_dataset.select(range(min(pull_total, len(filtered_dataset))))
+print("Filtered dataset size:", len(filtered_dataset))
+print("Sample entry:", filtered_dataset[0])  # Should be a dict
+
+# Write to files
+pulls_per_file = pull_total // divisions
 for i in range(divisions):
-    # Open each file we need to append to
-    filesOut.append(open(outputPath+str(i)+outputSuffix, "w+", encoding="utf-8"))
-
-pullsPerFile = pull_total / divisions
-pulled = 0
-selected = set()
-if len(filesOut):
-    while pulled < pull_total:
-        target = random.randint(0, len(dataset) - 1)
-        if target in selected:
-            continue
-        selected.add(target)
-
-        targetFileNum = math.floor(pulled / pullsPerFile)
-        targetFileOut = filesOut[targetFileNum]
-        if targetFileOut:
-            targetFileOut.write(json.dumps(dataset[target]) + '\n')
-        else:
-            raise IndexError
-
-        if pulled % int(pullsPerFile) == 0:
-            print(f"Working on file {targetFileNum}, processed {pulled} records so far out of {pull_total}.")
-        pulled += 1
-
-for f in filesOut:
-    f.close()
-
+    start = i * pulls_per_file
+    end = (i + 1) * pulls_per_file if i < divisions - 1 else len(selected_reviews)
+    out_file = os.path.join(output_path, f"{i}{output_suffix}")
+    with open(out_file, "w", encoding="utf-8") as f:
+        subset = selected_reviews.select(range(start, end))
+        for review in subset:
+            f.write(json.dumps(review) + "\n")
+    print(f"Wrote {end - start} reviews to {out_file}")

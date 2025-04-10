@@ -5,7 +5,7 @@ Dataset: https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
 <br/>
 Tools: Anaconda, Jupyter
 <br/>
-Libraries: Pandas
+Libraries: Pandas, fastparquet
 
 
 ### Environment
