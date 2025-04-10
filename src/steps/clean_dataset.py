@@ -42,14 +42,6 @@ class CleanDatasetStep(Step):
         
         logging.info(f"Total rows at the beginning of cleaning: {len(df)}")
         
-        #Stores the datapoints that are suitable length
-        filtered_datapoints = []
-        
-        #Loop through the dataset to filter out text that are too long or too short
-        for text in df['text']:
-            if self.filter_length(text):
-                filtered_datapoints.append(text)
-        
         #Iterate through dataframe and remove data points that dont meet the length filter
         filtered_df = df[df['text'].apply(self.filter_length)]
         
