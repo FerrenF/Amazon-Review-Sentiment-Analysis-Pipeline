@@ -26,7 +26,7 @@ def load_dataset_from_parquet(stage: Stage, output_prefix: str, data: dict) -> d
     logging.info(f"Loading processed dataset from {str(input_path)}")
 
     try:
-        df = pd.read_parquet(input_path, engine='fastparquet')
+        df = pd.read_parquet(input_path, engine='pyarrow')
         data["dataset"] = df
     except Exception as e:
         logging.error(f"Failed to read parquet file at {str(input_path)}: {e}")

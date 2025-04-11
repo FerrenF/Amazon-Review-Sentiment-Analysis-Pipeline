@@ -2,7 +2,7 @@ import logging
 import pathlib
 
 import pandas as pd
-import fastparquet
+import pyarrow as pa
 import os
 from src.project_common import *
 
@@ -37,7 +37,8 @@ def write_dataset(stage: Stage, output_prefix: str, data: dict) -> bool:
     output_file = output_dir.joinpath(output_filename + processedDataExtensionType)
     output_file.touch()
 
-    fastparquet.write(output_file, data['dataset'])
+    data['dataset'].to_parquet(output_file, engine='pyarrow')
+    #fastparquet.write(output_file, data['dataset'])
 
     if output_file.exists():
         return True

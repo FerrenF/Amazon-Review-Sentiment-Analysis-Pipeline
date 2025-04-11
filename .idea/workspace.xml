@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a4b74db-6dd4-4b64-b542-f893134bbc71" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/steps/lowercasing_step.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steps/html_tag_remove_step.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steps/spellcheck_step.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steps/symbol_separation_step.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playground1_dataset_statistics.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playground1_dataset_statistics.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/processed/data_cleaning.parquet" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/processed/data_cleaning.parquet" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/processed/data_loading.parquet" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/processed/data_loading.parquet" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/load_dataset_from_parquet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/load_dataset_from_parquet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/write_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/write_dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,20 +42,29 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "lowercasing-step",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "D:/Project/Data Science Capstone 2025/src/data/unprocessed",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.selected.configurable": "terminal",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="Data Science Capstone 2025" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="Data Science Capstone 2025" />
+      </console-settings>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Project\Data Science Capstone 2025\src\data\unprocessed" />
@@ -151,6 +166,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$pull_books_data.coverage" NAME="pull_books_data Coverage Results" MODIFIED="1744262443112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/utils" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$dataset_builder.coverage" NAME="dataset_builder Coverage Results" MODIFIED="1743365936066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$main.coverage" NAME="main Coverage Results" MODIFIED="1744334877377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$main.coverage" NAME="main Coverage Results" MODIFIED="1744338970186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

@@ -3,8 +3,11 @@ from src.core.pipeline import Pipeline
 from src.core.stage import Stage
 from src.steps.clean_dataset import CleanDatasetStep
 from src.steps.clean_punctuation import CleanPunctuationStep
+from src.steps.html_tag_remove_step import RemoveHTMLTagsStep
 from src.steps.load_dataset import LoadDatasetStep
 from src.steps.lowercasing_step import LowercasingStep
+from src.steps.spellcheck_step import SpellCheckStep
+from src.steps.symbol_separation_step import SymbolSeparationStep
 from src.utils.write_dataset import write_dataset
 
 
@@ -29,9 +32,11 @@ project_stages = [
         # During the cleaning stage, we try to make the data we are going to feed into the rest of the pipeline more
         # consistent. Here, we do such tasks as removing punctuation, filtering out data that has less than X words,
         # or performing stemming.
-
+        RemoveHTMLTagsStep(),
+        SymbolSeparationStep(),
         CleanPunctuationStep(),
-        LowercasingStep()
+        LowercasingStep(),
+        SpellCheckStep()
     ],  on_complete=cleaning_stage_finished_callback),
     Stage("processing", [
         # When processing our cleaned data, it is time to tokenize, perform analysis of, and split the data we have into
