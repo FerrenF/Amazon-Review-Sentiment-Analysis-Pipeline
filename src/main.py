@@ -1,12 +1,16 @@
 
 from src.core.pipeline import Pipeline
 from src.core.stage import Stage
-from src.steps.clean_dataset import CleanDatasetStep
+from src.steps.clean_punctuation import CleanPunctuationStep
 from src.steps.load_dataset import LoadDatasetStep
 from src.utils.write_dataset import write_dataset
 
 
 def loading_stage_finished_callback(stage: Stage, _data: dict):
+    write_dataset(stage, "data", _data)
+
+
+def cleaning_stage_finished_callback(stage: Stage, _data: dict):
     write_dataset(stage, "data", _data)
 
 
@@ -24,7 +28,8 @@ project_stages = [
         # consistent. Here, we do such tasks as removing punctuation, filtering out data that has less than X words,
         # or performing stemming.
 
-    ]),
+        CleanPunctuationStep()
+    ],  on_complete=cleaning_stage_finished_callback),
     Stage("processing", [
         # When processing our cleaned data, it is time to tokenize, perform analysis of, and split the data we have into
         # a training and testing set.
