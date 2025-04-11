@@ -40,6 +40,11 @@ class EvaluationStep(Step):
         # Calculate and log metrics
         results = {}
         if "mse" in self.metrics:
+
+            baseline = np.mean(data['y_train'])
+            baseline_mse = mean_squared_error(y_test, [baseline] * len(y_test))
+            print(f"Baseline MSE: {baseline_mse}")
+
             mse = mean_squared_error(y_test, y_pred_rounded)
             results["mse"] = mse
             logging.info(f"Mean Squared Error (MSE): {mse:.4f}")

@@ -33,6 +33,7 @@ project_stages = [
         SymbolSeparationStep(),
         CleanPunctuationStep("!?.,", True),
         LowercasingStep(),
+        WhitespaceTrimmingStep(),
         SpellCheckStep(),
         CombineTextColumnsStep()
     ],  on_complete=stage_finished_callback),

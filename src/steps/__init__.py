@@ -6,6 +6,7 @@ from .html_tag_remove import RemoveHTMLTagsStep
 from .load_checkpoint import LoadCheckpointIfExists
 from .load_dataset import LoadDatasetStep
 from .lowercasing_step import LowercasingStep
+from .whitespace_trimming import WhitespaceTrimmingStep
 from .spacy_lemmatization import SpacyLemmatizationStep
 from .spacy_tokenization import SpacyTokenizationStep
 from .spacy_vectorization import SpacyVectorizationStep
@@ -26,7 +27,7 @@ __all__ = [
     "LoadDatasetStep", "LowercasingStep", "SpacyLemmatizationStep",
     "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
-    "NormalizeVectorsStep",
+    "NormalizeVectorsStep", "WhitespaceTrimmingStep",
     "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep",
     "EvaluationStep", "OutputPredictionsStep"
 ]
