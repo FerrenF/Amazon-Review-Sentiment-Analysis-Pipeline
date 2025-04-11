@@ -44,6 +44,7 @@ class OutputPredictionsStep(Step):
         text_test = data["text_test"]
 
         y_pred = model.predict(X_test)
+        y_pred = np.clip(y_pred, -1, 1)
 
         predictions = []
         for i in range(len(X_test)):

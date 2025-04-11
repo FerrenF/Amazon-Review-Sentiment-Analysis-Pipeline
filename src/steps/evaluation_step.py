@@ -34,6 +34,7 @@ class EvaluationStep(Step):
         logging.info(f"Evaluating model...")
 
         y_pred = model.predict(X_test)
+        y_pred = np.clip(y_pred, -1, 1)
 
         # Calculate and log metrics
         results = {}
