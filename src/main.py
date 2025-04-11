@@ -2,7 +2,6 @@ import logging
 
 from core import *
 from steps import *
-from steps.output_predictions import OutputPredictionsStep
 from utils import write_dataset, pickle_dataset
 
 
@@ -43,6 +42,7 @@ project_stages = [
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
         SpacyLemmatizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
         SpacyVectorizationStep(model="en_core_web_md"),
+        NormalizeVectorsStep(),
         BalanceLabelsStep(),
 
     ],  on_complete=stage_finished_pickler_callback),
@@ -50,7 +50,7 @@ project_stages = [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
-        LinearRegressionStep()
+        RandomForestRegressionStep()
     ]),
     Stage("evaluation", [
         # Here, we use our testing set to predict a set of labels for data that only we know the true value of.

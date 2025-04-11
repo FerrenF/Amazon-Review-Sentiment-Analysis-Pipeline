@@ -35,27 +35,28 @@ class EvaluationStep(Step):
 
         y_pred = model.predict(X_test)
         y_pred = np.clip(y_pred, -1, 1)
+        y_pred_rounded =  np.clip(np.round(y_pred), -1, 1).astype(int)
 
         # Calculate and log metrics
         results = {}
         if "mse" in self.metrics:
-            mse = mean_squared_error(y_test, y_pred)
+            mse = mean_squared_error(y_test, y_pred_rounded)
             results["mse"] = mse
             logging.info(f"Mean Squared Error (MSE): {mse:.4f}")
 
         if "mae" in self.metrics:
-            mae = mean_absolute_error(y_test, y_pred)
+            mae = mean_absolute_error(y_test, y_pred_rounded)
             results["mae"] = mae
             logging.info(f"Mean Absolute Error (MAE): {mae:.4f}")
 
         if "r2" in self.metrics:
-            r2 = r2_score(y_test, y_pred)
+            r2 = r2_score(y_test, y_pred_rounded)
             results["r2"] = r2
             logging.info(f"R² Score: {r2:.4f}")
 
         if "mape" in self.metrics:
-            y_test_safe = np.where(y_test == 0, 1e-8, y_test)  # avoid division by zero
-            mape = np.mean(np.abs((y_test - y_pred) / y_test_safe)) * 100
+            y_test_safe = np.where(y_test == 0, 1e-8, y_pred_rounded)  # avoid division by zero
+            mape = np.mean(np.abs((y_test - y_pred_rounded) / y_test_safe)) * 100
             results["mape"] = mape
             logging.info(f"Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
 

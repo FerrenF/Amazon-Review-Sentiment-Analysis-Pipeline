@@ -14,7 +14,6 @@ class LinearRegressionStep(Step):
     def run(self, data: dict) -> dict:
         """
         Trains a Linear Regression model and stores it in the data dictionary.
-        The dataset should include features and a label column.
         """
         if "dataset" not in data:
             raise ValueError("No dataset found in the data dictionary.")

@@ -45,13 +45,15 @@ class OutputPredictionsStep(Step):
 
         y_pred = model.predict(X_test)
         y_pred = np.clip(y_pred, -1, 1)
+        y_pred_rounded = np.round(y_pred).astype(int)
 
         predictions = []
         for i in range(len(X_test)):
             predictions.append({
                 "text": text_test[i],
                 "true_label": y_test[i],
-                "predicted_label": y_pred[i]
+                "predicted_label": y_pred[i],
+                "rounded_prediction": y_pred_rounded[i]
             })
 
         data[self.output_key] = predictions

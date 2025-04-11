@@ -11,16 +11,23 @@ class RandomForestRegressionStep(Step):
 
     def run(self, data: dict) -> dict:
         """
-        Trains a Random Forest Regression model using vectorized text data and stores it in the data dictionary.
-        The dataset should include a 'vector' column (features) and a 'target' column (labels).
+        Trains a Random Forest Regression model using the vectorized text data and stores it in the data dictionary.
         """
         if "dataset" not in data:
             raise ValueError("No dataset found in the data dictionary.")
 
         df = data["dataset"]
-        X = df["vector"].apply(lambda x: x if isinstance(x, np.ndarray) else np.zeros(
-            self.vector_size)).tolist()  # Vectorized data as features
-        y = df["target"]  # Assuming 'target' column exists
+        if "dataset" not in data:
+            raise ValueError("No dataset found in the data dictionary.")
+
+        if "X_train" not in data:
+            raise ValueError("No train data found in the data dictionary.")
+
+        if "y_train" not in data:
+            raise ValueError("No training labels found in the data dictionary.")
+
+        X = data["X_train"]
+        y = data["y_train"]
 
         logging.info(f"Training {self.name} model...")
         self.model.fit(X, y)

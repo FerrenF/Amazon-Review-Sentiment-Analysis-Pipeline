@@ -13,15 +13,13 @@ class SVRStep(Step):
     def run(self, data: dict) -> dict:
         """
         Trains a Support Vector Regression model using vectorized text data and stores it in the data dictionary.
-        The dataset should include a 'vector' column (features) and a 'target' column (labels).
         """
         if "dataset" not in data:
             raise ValueError("No dataset found in the data dictionary.")
 
         df = data["dataset"]
-        X = df["vector"].apply(lambda x: x if isinstance(x, np.ndarray) else np.zeros(
-            self.vector_size)).tolist()  # Vectorized data as features
-        y = df["target"]  # Assuming 'target' column exists
+        X = df["vector"]
+        y = df["label"]  # Assuming 'target' column exists
 
         logging.info(f"Training {self.name} model...")
         self.model.fit(X, y)
