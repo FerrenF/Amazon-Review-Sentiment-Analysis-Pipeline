@@ -1,6 +1,6 @@
 import regex
 import logging
-from src.core.step import Step
+from core.step import Step
 
 class SymbolSeparationStep(Step):
     name = "separate_symbols"

@@ -3,7 +3,7 @@ import string
 import re
 import unicodedata
 
-from src.core.step import Step
+from core.step import Step
 
 
 class LowercasingStep(Step):

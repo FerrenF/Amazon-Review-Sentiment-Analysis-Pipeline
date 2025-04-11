@@ -5,8 +5,8 @@ from common.project_common import *
 
 from core.stage import Stage
 
+def pickle_dataset(stage: Stage, output_prefix: str, data: dict) -> pathlib.Path | None:
 
-def write_dataset(stage: Stage, output_prefix: str, data: dict) -> pathlib.Path | None:
     if data.get("dataset") is None:
         return None
 
@@ -18,8 +18,8 @@ def write_dataset(stage: Stage, output_prefix: str, data: dict) -> pathlib.Path 
     output_dir = pathlib.Path(PROCESSED_DATA_DIR)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = output_dir / (output_filename + PROCESSED_EXT)
-    df.to_parquet(output_file, engine='pyarrow')
+    output_file = output_dir / (output_filename + ".pkl")
+    df.to_pickle(output_file)
 
     return output_file if output_file.exists() else None
 

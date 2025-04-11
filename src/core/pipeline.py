@@ -1,4 +1,4 @@
-from src.core.stage import Stage
+from .stage import Stage
 
 
 class Pipeline:

@@ -1,6 +1,6 @@
 import re
 import logging
-from src.core.step import Step
+from core.step import Step
 
 class RemoveHTMLTagsStep(Step):
     name = "remove_html_tags"

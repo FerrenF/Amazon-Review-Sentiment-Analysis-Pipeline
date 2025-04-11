@@ -1,9 +1,8 @@
 import json
-import os
 import pathlib
 
-from src.core.step import Step
-from src.project_common import *
+from core.step import Step
+from common.project_common import *
 
 import pandas as pd
 # We want to extend our Step class, and ensure that we have defined all the methods within Step so that our base
@@ -21,16 +20,16 @@ class LoadDatasetStep(Step):
         :param data: A dict, whose 'dataset' field will be set to the retrieved data
         :return: the modified 'data' dict
         """
-        path_object = pathlib.Path(unprocessedDataDirectory)
+        path_object = pathlib.Path(UNPROCESSED_DATA_DIR)
         if not path_object.exists():
-            raise FileNotFoundError(f"Input path for unprocessed data at {unprocessedDataDirectory} does not exist.")
+            raise FileNotFoundError(f"Input path for unprocessed data at {UNPROCESSED_DATA_DIR} does not exist.")
 
         out_dataset = None
         # Iterate through objects in the directory.
         for child in path_object.iterdir():
 
             # If the child's extension matches .jsonl, then include it in our dataset
-            if child.match("*"+unprocessedDataExtensionType):
+            if child.match("*" + UNPROCESSED_EXT):
                 logging.info(f"Found data file: {str(child)}")
 
                 # Our lines look like:

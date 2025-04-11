@@ -1,7 +1,7 @@
 import pathlib
 
-from src.core.step import Step
-from src.project_common import *
+from core.step import Step
+from common.project_common import *
 
 
 class CleanDatasetStep(Step):
@@ -16,15 +16,15 @@ class CleanDatasetStep(Step):
         :return: The same input dict.
         """
 
-        path_object = pathlib.Path(processedDataDirectory)
+        path_object = pathlib.Path(PROCESSED_DATA_DIR)
         if not path_object.exists():
-            raise FileNotFoundError(f"Input path for unprocessed data at {unprocessedDataDirectory} does not exist.")
+            raise FileNotFoundError(f"Input path for unprocessed data at {UNPROCESSED_DATA_DIR} does not exist.")
 
         # Iterate through objects in the processed data directory.
         for child in path_object.iterdir():
 
             # If the child's extension matches .parquet, then it's processed data. Terminate it.
-            if child.match("*"+processedDataExtensionType):
+            if child.match("*" + PROCESSED_EXT):
                 logging.info(f"Deleting processed data parquet: {str(child)}")
                 child.unlink(True)
 

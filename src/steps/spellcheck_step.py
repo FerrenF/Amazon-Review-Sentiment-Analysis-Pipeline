@@ -1,6 +1,6 @@
 from spellchecker import SpellChecker
 import logging
-from src.core.step import Step
+from core.step import Step
 
 class SpellCheckStep(Step):
     name = "spellcheck_step"
