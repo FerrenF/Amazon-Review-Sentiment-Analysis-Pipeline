@@ -2,7 +2,7 @@
 from src.core.pipeline import Pipeline
 from src.core.stage import Stage
 from src.steps.load_dataset import LoadDatasetStep
-from src.steps.clean_dataset import CleanDatasetStep
+from src.steps.apply_word_threshold import ApplyWordThresholdStep
 from src.utils.write_dataset import write_dataset
 
 
@@ -18,7 +18,7 @@ project_stages = [
         LoadDatasetStep()
     ],  on_complete=loading_stage_finished_callback),
     Stage("cleaning", [
-        CleanDatasetStep(min_length = 10, max_length = 300)
+        ApplyWordThresholdStep(min_length = 2, max_length = 750)
 
     ], on_complete=cleaning_stage_finished_callback),
     Stage("processing", [
