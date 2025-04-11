@@ -17,6 +17,7 @@ from .train_linear_regression import LinearRegressionStep
 from .train_support_vector_machine import SVRStep
 from .train_random_forest import RandomForestRegressionStep
 from .evaluation_step import EvaluationStep
+from .output_predictions import OutputPredictionsStep
 
 __all__ = [
     "CleanDatasetStep", "CleanPunctuationStep", "CombineTextColumnsStep",
@@ -25,5 +26,5 @@ __all__ = [
     "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
     "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep",
-    "EvaluationStep"
+    "EvaluationStep", "OutputPredictionsStep"
 ]

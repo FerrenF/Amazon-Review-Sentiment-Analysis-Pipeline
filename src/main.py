@@ -2,6 +2,7 @@ import logging
 
 from core import *
 from steps import *
+from steps.output_predictions import OutputPredictionsStep
 from utils import write_dataset, pickle_dataset
 
 
@@ -52,9 +53,9 @@ project_stages = [
         LinearRegressionStep()
     ]),
     Stage("evaluation", [
-        # Here, we use our testing set to predict a set of labels for data that only we know the true value of. The
-        # results
-        EvaluationStep()
+        # Here, we use our testing set to predict a set of labels for data that only we know the true value of.
+        EvaluationStep(metrics=["mae", "mse", "r2"]),
+        OutputPredictionsStep(save_to_file=True, filename="predictions.json")
     ])
 ]
 

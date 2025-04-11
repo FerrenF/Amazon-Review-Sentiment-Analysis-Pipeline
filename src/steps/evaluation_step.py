@@ -1,7 +1,7 @@
 import logging
 
 import numpy as np
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from core.step import Step
 
 
@@ -41,6 +41,22 @@ class EvaluationStep(Step):
             mse = mean_squared_error(y_test, y_pred)
             results["mse"] = mse
             logging.info(f"Mean Squared Error (MSE): {mse:.4f}")
+
+        if "mae" in self.metrics:
+            mae = mean_absolute_error(y_test, y_pred)
+            results["mae"] = mae
+            logging.info(f"Mean Absolute Error (MAE): {mae:.4f}")
+
+        if "r2" in self.metrics:
+            r2 = r2_score(y_test, y_pred)
+            results["r2"] = r2
+            logging.info(f"R² Score: {r2:.4f}")
+
+        if "mape" in self.metrics:
+            y_test_safe = np.where(y_test == 0, 1e-8, y_test)  # avoid division by zero
+            mape = np.mean(np.abs((y_test - y_pred) / y_test_safe)) * 100
+            results["mape"] = mape
+            logging.info(f"Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
 
         # Add more metrics here as needed
 

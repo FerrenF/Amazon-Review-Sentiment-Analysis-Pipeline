@@ -5,42 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a4b74db-6dd4-4b64-b542-f893134bbc71" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/unprocessed/books_data_lowscore1.jsonl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/unprocessed/books_data_lowscore3.jsonl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/combine_text_columns.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/dataset_balancing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/evaluation_step.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/load_checkpoint.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/normalize_vectors.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/spacy_lemmatization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/spacy_tokenization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/spacy_vectorization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/train_linear_regression.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/train_random_forest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/train_support_vector_machine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/train_test_split.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/unflatten_vector_columns.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/load_dataset_from_pickle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/pickle_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/steps/output_predictions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/stage.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/stage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/processed/data_cleaning.parquet" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/processed/data_loading.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/project_common.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/project_common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/clean_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/clean_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/clean_punctuation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/clean_punctuation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/html_tag_remove_step.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/html_tag_remove.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/load_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/load_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/lowercasing_step.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/lowercasing_step.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/spellcheck_step.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/spellcheck_step.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/symbol_separation_step.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/symbol_separation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/load_dataset_from_parquet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/load_dataset_from_parquet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/write_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/write_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/steps/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/steps/evaluation_step.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/evaluation_step.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/steps/train_test_split.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/train_test_split.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -199,7 +172,7 @@
       <workItem from="1744318988481" duration="1946000" />
       <workItem from="1744348218889" duration="168000" />
       <workItem from="1744389371156" duration="6909000" />
-      <workItem from="1744396312054" duration="9345000" />
+      <workItem from="1744396312054" duration="10714000" />
     </task>
     <servers />
   </component>
