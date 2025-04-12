@@ -32,6 +32,7 @@ project_stages = [
         RemoveHTMLTagsStep(),
         SymbolSeparationStep(),
         CleanPunctuationStep("!?.,", True),
+        ApplyWordThresholdStep(min_length = 3, max_length = 50),
         LowercasingStep(),
         WhitespaceTrimmingStep(),
         SpellCheckStep(),
