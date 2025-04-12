@@ -18,7 +18,7 @@ project_stages = [
         LoadDatasetStep()
     ],  on_complete=loading_stage_finished_callback),
     Stage("cleaning", [
-        ApplyWordThresholdStep(min_length = 2, max_length = 750)
+        ApplyWordThresholdStep(min_length = 2, max_length = 50)
 
     ], on_complete=cleaning_stage_finished_callback),
     Stage("processing", [

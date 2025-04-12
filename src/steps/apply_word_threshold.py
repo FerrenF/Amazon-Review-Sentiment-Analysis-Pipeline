@@ -20,12 +20,9 @@ class ApplyWordThresholdStep(Step):
 
     
     def filter_length(self, text: str) -> bool:
-        length = len(text)
-        
-        if self.min_length <= length <= self.max_length:
-            return True
-        else:
-            return False
+        #Word count instead of text count
+        length = len(text.split())
+        return self.min_length <= length <= self.max_length
 
 
     def run(self, data: dict) -> dict:
@@ -51,5 +48,3 @@ class ApplyWordThresholdStep(Step):
         data["dataset"] = filtered_df
         
         return data
-        
-    
