@@ -20,6 +20,7 @@ from .train_random_forest import RandomForestRegressionStep
 from .evaluation_step import EvaluationStep
 from .output_predictions import OutputPredictionsStep
 from .normalize_vectors import NormalizeVectorsStep
+from .word_threshold import ApplyWordThresholdStep
 
 __all__ = [
     "CleanDatasetStep", "CleanPunctuationStep", "CombineTextColumnsStep",
@@ -29,5 +30,5 @@ __all__ = [
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
     "NormalizeVectorsStep", "WhitespaceTrimmingStep",
     "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep",
-    "EvaluationStep", "OutputPredictionsStep"
+    "EvaluationStep", "OutputPredictionsStep", "ApplyWordThresholdStep"
 ]
