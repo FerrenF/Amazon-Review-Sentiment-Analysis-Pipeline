@@ -1,4 +1,5 @@
 import logging
+import re
 import subprocess
 import sys
 
@@ -33,16 +34,26 @@ class SpacyLemmatizationStep(Step):
             if not isinstance(text, str):
                 return text
             doc = self.nlp(text)
-            if self.pos_keep:
-                # Only keep tokens that match the selected POS tags
-                return " ".join(
-                    token.lemma_ for token in doc
-                    if not token.is_space and token.pos_ in self.pos_keep
-                )
-            else:
-                return " ".join(
-                    token.lemma_ for token in doc if not token.is_space
-                )
+
+            tokens = []
+            for token in doc:
+                if token.is_space:
+                    continue  # skip whitespace — will handle spacing manually
+                elif self.pos_keep and token.pos_ not in self.pos_keep:
+                    tokens.append(token.text)  # preserve original form
+                elif token.is_alpha:
+                    tokens.append(token.lemma_)  # lemmatize normal words
+                else:
+                    tokens.append(token.text)  # preserve punctuation, numbers, symbols
+
+            # Manually rejoin with spacing that keeps punctuation readable
+            spaced = []
+            for i, tok in enumerate(tokens):
+                if i > 0 and not re.match(r"[.,!?;:']", tok):
+                    spaced.append(" ")
+                spaced.append(tok)
+
+            return "".join(spaced).strip()
 
         logging.info(f"Lemmatizing text with spaCy model '{self.model}'...")
         if self.pos_keep:

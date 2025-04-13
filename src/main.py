@@ -17,11 +17,20 @@ def stage_finished_pickler_callback(stage: Stage, _data: dict):
 
 # The project pipeline is divided into 5 stages: Loading, Cleaning, Processing, Training, and Evaluation.
 
+# For SVR training
+param_grid = {
+    'C': [0.1, 1, 10, 100],
+    'epsilon': [0.01, 0.1, 0.2],
+    'gamma': ['scale', 'auto', 0.01, 0.1],
+    'kernel': ['rbf', 'poly']
+}
+# Last Best Parameters:  {'C': 10, 'epsilon': 0.2, 'gamma': 'scale', 'kernel': 'rbf'}
+
+
 project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-        LoadCheckpointIfExists("processing", "data", is_pickle=True),
         #LoadCheckpointIfExists("processing", "data", is_pickle=True),
         CleanDatasetStep(),
         LoadDatasetStep()
@@ -32,21 +41,21 @@ project_stages = [
         # or performing stemming.
         RemoveHTMLTagsStep(),
         SymbolSeparationStep(),
-        CleanPunctuationStep("!?.,", True),
-        ApplyWordThresholdStep(min_length = 3, max_length = 50),
-        LowercasingStep(),
+        ApplyWordThresholdStep(min_length = 3, max_length = 200),
         CleanPunctuationStep(keep_punctuation=".,!?\"'-", normalize_unicode=True),
         NormalizePunctuationStep(),
-        ArtifactRemovalStep(),
+        HyphenChainNormalizerStep(),
         WhitespaceTrimmingStep(),
         SpellCheckStep(),
+        SpaceAndBalanceQuotesStep(),
+        TokenMergeCorrectionStep(),
         CombineTextColumnsStep()
     ],  on_complete=stage_finished_callback),
     Stage("processing", [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
-        SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
-        SpacyLemmatizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
+        SpacyTokenizationStep(model="en_core_web_md"),
+       # SpacyLemmatizationStep(model="en_core_web_md", disable=["parser", "ner"]),
         SpacyVectorizationStep(model="en_core_web_md"),
         NormalizeVectorsStep(),
         BalanceLabelsStep(),
@@ -56,8 +65,9 @@ project_stages = [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
-        RandomForestRegressionStep()
-        RidgeRegressionStep(alpha=0.5)
+        SVRStep(grid_search=True, param_grid=param_grid),
+
+
     ]),
     Stage("evaluation", [
         # Here, we use our testing set to predict a set of labels for data that only we know the true value of.

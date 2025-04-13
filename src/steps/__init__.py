@@ -24,19 +24,22 @@ from .evaluation_step import EvaluationStep
 from .output_predictions import OutputPredictionsStep
 from .normalize_vectors import NormalizeVectorsStep
 from .word_threshold import ApplyWordThresholdStep
-
 from .normalize_punctuation import NormalizePunctuationStep
+from .token_merge_correction import TokenMergeCorrectionStep
+from .normalize_spacing import NormalizeSpacingStep
+from .hyphen_chain_normalizer import HyphenChainNormalizerStep
+from .space_and_balance_quotes import SpaceAndBalanceQuotesStep
+
 __all__ = [
-    "CleanDatasetStep", "CleanPunctuationStep", "CombineTextColumnsStep",
     "ArtifactRemovalStep",
     "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
-    "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists",
-    "LoadDatasetStep", "LowercasingStep", "SpacyLemmatizationStep",
+    "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
+    "LoadDatasetStep", "LowercasingStep", "SpacyLemmatizationStep", "NormalizeSpacingStep",
     "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
-    "NormalizeVectorsStep", "WhitespaceTrimmingStep",
+    "NormalizeVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
     "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep",
-    "EvaluationStep", "OutputPredictionsStep", "ApplyWordThresholdStep"
+    "EvaluationStep", "OutputPredictionsStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
     "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep",
     "RandomForestRegressionStep", "SVRStep",
     "EvaluationStep", "OutputPredictionsStep"

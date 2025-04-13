@@ -26,7 +26,7 @@ class CombineTextColumnsStep(Step):
             title = title if isinstance(title, str) else ""
             text = text if isinstance(text, str) else ""
             if title and text:
-                return f"{title}{self.separator}{text}"
+                return f"{title}{self.separator if not title.endswith(('!','.','?')) else ' '}{text}"
             return title or text  # Only one may be present
 
         logging.info(f"Combining 'title' and 'text' into 'text' using separator: '{self.separator}'...")
