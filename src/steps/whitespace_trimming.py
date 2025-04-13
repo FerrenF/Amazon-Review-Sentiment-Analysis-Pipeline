@@ -24,7 +24,7 @@ class WhitespaceTrimmingStep(Step):
                 return text
             # Remove leading/trailing spaces and replace multiple spaces with a single space
             text = text.strip()
-            text = re.sub(r'\s+', ' ', text)
+            text = re.sub(r'\s{2,}', ' ', text)
             return text
 
         logging.info("Trimming excessive whitespace in dataset...")

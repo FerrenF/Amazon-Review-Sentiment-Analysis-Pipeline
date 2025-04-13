@@ -22,6 +22,7 @@ project_stages = [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
         LoadCheckpointIfExists("processing", "data", is_pickle=True),
+        #LoadCheckpointIfExists("processing", "data", is_pickle=True),
         CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
@@ -34,6 +35,9 @@ project_stages = [
         CleanPunctuationStep("!?.,", True),
         ApplyWordThresholdStep(min_length = 3, max_length = 50),
         LowercasingStep(),
+        CleanPunctuationStep(keep_punctuation=".,!?\"'-", normalize_unicode=True),
+        NormalizePunctuationStep(),
+        ArtifactRemovalStep(),
         WhitespaceTrimmingStep(),
         SpellCheckStep(),
         CombineTextColumnsStep()
@@ -53,6 +57,7 @@ project_stages = [
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
         RandomForestRegressionStep()
+        RidgeRegressionStep(alpha=0.5)
     ]),
     Stage("evaluation", [
         # Here, we use our testing set to predict a set of labels for data that only we know the true value of.
