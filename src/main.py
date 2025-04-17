@@ -54,8 +54,7 @@ project_stages = [
     Stage("processing", [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
-        SpacyTokenizationStep(model="en_core_web_md"),
-       # SpacyLemmatizationStep(model="en_core_web_md", disable=["parser", "ner"]),
+        SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
         SpacyVectorizationStep(model="en_core_web_md"),
         NormalizeVectorsStep(),
         BalanceLabelsStep(),
@@ -65,6 +64,8 @@ project_stages = [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
+
+       # RandomForestRegressionStep(random_state=42),
         SVRStep(grid_search=True, param_grid=param_grid),
 
 

@@ -8,7 +8,6 @@ from .load_checkpoint import LoadCheckpointIfExists
 from .load_dataset import LoadDatasetStep
 from .lowercasing_step import LowercasingStep
 from .whitespace_trimming import WhitespaceTrimmingStep
-from .spacy_lemmatization import SpacyLemmatizationStep
 from .spacy_tokenization import SpacyTokenizationStep
 from .spacy_vectorization import SpacyVectorizationStep
 from .spellcheck_step import SpellCheckStep
@@ -34,7 +33,7 @@ __all__ = [
     "ArtifactRemovalStep",
     "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
-    "LoadDatasetStep", "LowercasingStep", "SpacyLemmatizationStep", "NormalizeSpacingStep",
+    "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep",
     "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
     "NormalizeVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
