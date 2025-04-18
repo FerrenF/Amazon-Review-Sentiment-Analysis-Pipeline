@@ -18,9 +18,14 @@ def stage_finished_pickler_callback(stage: Stage, _data: dict):
 # The project pipeline is divided into 5 stages: Loading, Cleaning, Processing, Training, and Evaluation.
 
 # For SVR training (also SVC)
-sv_param_grid = {
+svr_param_grid = {
     'C': [0.1, 1, 10, 100],
     'epsilon': [0.01, 0.1, 0.2],
+    'gamma': ['scale', 'auto', 0.01, 0.1],
+    'kernel': ['rbf', 'poly']
+}
+svc_param_grid = {
+    'C': [0.1, 1, 10, 100],
     'gamma': ['scale', 'auto', 0.01, 0.1],
     'kernel': ['rbf', 'poly']
 }
@@ -36,7 +41,7 @@ project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-        #LoadCheckpointIfExists("processing", "data", is_pickle=True),
+        LoadCheckpointIfExists("processing", "data", is_pickle=True),
         CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
@@ -69,7 +74,8 @@ project_stages = [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
-        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
+        #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
+        SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
     ]),
     Stage("evaluation", [

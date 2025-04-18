@@ -15,7 +15,8 @@ from .symbol_separation import SymbolSeparationStep
 from .train_test_split import TrainTestSplitStep
 from .unflatten_vector_columns import UnflattenVectorColumnsStep
 from .train_linear_regression import LinearRegressionStep
-from .train_support_vector_machine import SVRStep
+from .train_support_vector_regression import SupportVectorRegressionStep
+from .train_support_vector_classification import SupportVectorClassificationStep
 from .train_random_forest_regressor import RandomForestRegressionStep
 from .train_random_forest_classifier import RandomForestClassificationStep
 from .train_ridge_regression import RidgeRegressionStep
@@ -39,8 +40,8 @@ __all__ = [
     "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
     "NormalizeVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
-    "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep", "RandomForestClassificationStep",
+    "LinearRegressionStep", "RandomForestClassificationStep",
     "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
     "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep",
-    "RandomForestRegressionStep", "SVRStep"
+    "RandomForestRegressionStep", "SupportVectorRegressionStep", "SupportVectorClassificationStep"
 ]

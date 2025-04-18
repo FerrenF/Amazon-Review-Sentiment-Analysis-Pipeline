@@ -4,7 +4,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
 from core.step import Step
 
-class SVRStep(Step):
+class SupportVectorRegressionStep(Step):
 
     name = "svr"
 

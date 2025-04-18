@@ -58,3 +58,11 @@ Classification (Random Forest):
 [INFO] Evaluating classification model...
 [INFO] Accuracy: 0.8739
 [INFO] F1 Score (macro): 0.8736
+
+
+Classification (Support Vector Machine):
+[INFO] Best parameters from grid search: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}
+[INFO] Training complete for support_vector_classification.
+[INFO] Evaluating classification model...
+[INFO] Accuracy: 0.7348
+[INFO] F1 Score (macro): 0.7340
