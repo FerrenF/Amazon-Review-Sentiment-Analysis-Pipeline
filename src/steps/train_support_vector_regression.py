@@ -9,6 +9,14 @@ class SVRStep(Step):
     name = "svr"
 
     def __init__(self, name: str = "svr", kernel='rbf', C=1.0, epsilon=0.1, grid_search=False, param_grid=None):
+        """
+          Trains a Support Vector Machine for a **Regression** model using vectorized text data and stores it in the data dictionary.
+          Optionally performs grid search for hyperparameter tuning.
+
+          :param grid_search: Whether to use GridSearchCV for hyperparameter tuning.
+          :param param_grid: The grid of parameters to search over.
+          :param params: Default parameters for SVR if grid_search is False.
+          """
         self.model = SVR(kernel=kernel, C=C, epsilon=epsilon)
         self.grid_search = grid_search
         self.param_grid = param_grid if param_grid else {
@@ -19,10 +27,7 @@ class SVRStep(Step):
         }
 
     def run(self, data: dict) -> dict:
-        """
-        Trains a Support Vector Regression model using vectorized text data and stores it in the data dictionary.
-        Optionally performs grid search for hyperparameter tuning.
-        """
+
         if "dataset" not in data:
             raise ValueError("No dataset found in the data dictionary.")
         if "X_train" not in data:
