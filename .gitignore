@@ -5,3 +5,4 @@
 *.pyc
 */__pycache__/*
 /src/data/processed/*
+.idea/workspace.xml

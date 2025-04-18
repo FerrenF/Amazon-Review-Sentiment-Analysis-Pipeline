@@ -20,11 +20,19 @@ class NumpyEncoder(json.JSONEncoder):
 class OutputPredictionsStep(Step):
     name = "output_predictions"
 
-    def __init__(self, output_key: str = "predictions", save_to_file: bool = True, output_dir: str = "output", filename: str = "predictions.json"):
+    def __init__(self, output_key: str = "predictions",
+                 rounded_predictions=False,
+                 save_to_file: bool = True,
+                 output_dir: str = "output",
+                 filename: str = "predictions.json",
+                 clipping_func = None):
+
         self.output_key = output_key
         self.save_to_file = save_to_file
         self.output_dir = pathlib.Path(output_dir)
         self.filename = filename
+        self.rounded_pred = rounded_predictions
+        self.clipping = clipping_func
 
     def run(self, data: dict) -> dict:
         """
@@ -44,17 +52,21 @@ class OutputPredictionsStep(Step):
         text_test = data["text_test"]
 
         y_pred = model.predict(X_test)
-        y_pred = np.clip(y_pred, -1, 1)
-        y_pred_rounded = np.round(y_pred).astype(int)
+        if self.clipping is not None:
+            self.clipping(y_pred)
 
         predictions = []
         for i in range(len(X_test)):
             predictions.append({
                 "text": text_test[i],
                 "true_label": y_test[i],
-                "predicted_label": y_pred[i],
-                "rounded_prediction": y_pred_rounded[i]
+                "predicted_label": y_pred[i]
             })
+
+        if self.rounded_pred:
+            y_pred_rounded = np.round(y_pred).astype(int)
+            for i in range(len(X_test)):
+                predictions[i]["rounded_prediction"] = y_pred_rounded[i]
 
         data[self.output_key] = predictions
 

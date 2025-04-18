@@ -1,7 +1,7 @@
 from .clean_dataset import CleanDatasetStep
 from .clean_punctuation import CleanPunctuationStep
 from .combine_text_columns import CombineTextColumnsStep
-from .dataset_balancing import BalanceLabelsStep
+from .balance_dataset_labels import BalanceLabelsStep
 from .remove_artifacts import ArtifactRemovalStep
 from .html_tag_remove import RemoveHTMLTagsStep
 from .load_checkpoint import LoadCheckpointIfExists
@@ -16,10 +16,11 @@ from .train_test_split import TrainTestSplitStep
 from .unflatten_vector_columns import UnflattenVectorColumnsStep
 from .train_linear_regression import LinearRegressionStep
 from .train_support_vector_machine import SVRStep
-from .train_random_forest import RandomForestRegressionStep
+from .train_random_forest_regressor import RandomForestRegressionStep
+from .train_random_forest_classifier import RandomForestClassificationStep
 from .train_ridge_regression import RidgeRegressionStep
 from .train_lasso_regression import LassoRegressionStep
-from .evaluation_step import EvaluationStep
+from .regression_evaluation_step  import RegressionEvaluationStep
 from .output_predictions import OutputPredictionsStep
 from .normalize_vectors import NormalizeVectorsStep
 from .word_threshold import ApplyWordThresholdStep
@@ -28,6 +29,7 @@ from .token_merge_correction import TokenMergeCorrectionStep
 from .normalize_spacing import NormalizeSpacingStep
 from .hyphen_chain_normalizer import HyphenChainNormalizerStep
 from .space_and_balance_quotes import SpaceAndBalanceQuotesStep
+from .classification_evaluation_step import ClassificationEvaluationStep
 
 __all__ = [
     "ArtifactRemovalStep",
@@ -37,9 +39,8 @@ __all__ = [
     "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
     "NormalizeVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
-    "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep",
-    "EvaluationStep", "OutputPredictionsStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
+    "LinearRegressionStep", "RandomForestRegressionStep", "SVRStep", "RandomForestClassificationStep",
+    "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
     "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep",
-    "RandomForestRegressionStep", "SVRStep",
-    "EvaluationStep", "OutputPredictionsStep"
+    "RandomForestRegressionStep", "SVRStep"
 ]

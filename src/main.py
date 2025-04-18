@@ -17,12 +17,17 @@ def stage_finished_pickler_callback(stage: Stage, _data: dict):
 
 # The project pipeline is divided into 5 stages: Loading, Cleaning, Processing, Training, and Evaluation.
 
-# For SVR training
-param_grid = {
+# For SVR training (also SVC)
+sv_param_grid = {
     'C': [0.1, 1, 10, 100],
     'epsilon': [0.01, 0.1, 0.2],
     'gamma': ['scale', 'auto', 0.01, 0.1],
     'kernel': ['rbf', 'poly']
+}
+rf_classifier_param_grid = {
+            "n_estimators": [100, 200],
+            "max_depth": [None, 10, 20],
+            "min_samples_split": [2, 5]
 }
 # Last Best Parameters:  {'C': 10, 'epsilon': 0.2, 'gamma': 'scale', 'kernel': 'rbf'}
 
@@ -57,22 +62,19 @@ project_stages = [
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
         SpacyVectorizationStep(model="en_core_web_md"),
         NormalizeVectorsStep(),
-        BalanceLabelsStep(),
+        BalanceLabelsStep(sample_method="oversample"),
 
     ],  on_complete=stage_finished_pickler_callback),
     Stage("training", [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
-
-       # RandomForestRegressionStep(random_state=42),
-        SVRStep(grid_search=True, param_grid=param_grid),
-
+        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
 
     ]),
     Stage("evaluation", [
         # Here, we use our testing set to predict a set of labels for data that only we know the true value of.
-        EvaluationStep(metrics=["mae", "mse", "r2"]),
+        ClassificationEvaluationStep(metrics=["f1", "accuracy"]),
         OutputPredictionsStep(save_to_file=True, filename="predictions.json")
     ])
 ]
