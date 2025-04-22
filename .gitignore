@@ -6,3 +6,4 @@
 */__pycache__/*
 /src/data/processed/*
 .idea/workspace.xml
+/src/data/processed

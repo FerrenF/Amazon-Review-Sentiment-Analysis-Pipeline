@@ -13,6 +13,13 @@ class SpacyVectorizationStep(Step):
     name = "spacy_vectorization"
 
     def __init__(self, model="en_core_web_md", numeric_type: Type = np.float32, **model_kwargs):
+        """
+               Initializes the BoW vectorization step using sklearn's CountVectorizer.
+
+               :param model: The model to use (e.g. en_core_web_sm/en_core_web_md).
+               :param numeric_type: The numpy numeric type to case vector components to.
+               :param model_kwargs: Additional keyword arguments.
+               """
         self.model = model
         self.numeric_type = numeric_type
         try:
@@ -48,5 +55,5 @@ class SpacyVectorizationStep(Step):
 
         df["vector"] = vectors
         data["dataset"] = df
-        logging.info("Vectorization complete.")
+        logging.info("Spacy vectorization complete.")
         return data

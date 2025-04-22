@@ -31,16 +31,20 @@ from .normalize_spacing import NormalizeSpacingStep
 from .hyphen_chain_normalizer import HyphenChainNormalizerStep
 from .space_and_balance_quotes import SpaceAndBalanceQuotesStep
 from .classification_evaluation_step import ClassificationEvaluationStep
+from .train_gauss_naive_bayes_classification import GaussNaiveBayesClassificationStep
+from .train_multinomial_naive_bayes import MultinomialNaiveBayesClassificationStep
+from .scale_vectors import ScaleVectorsStep
+from .bow_vectorization import BagOfWordsVectorizationStep
 
 __all__ = [
     "ArtifactRemovalStep",
     "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
     "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep",
-    "SpacyTokenizationStep", "SpacyVectorizationStep", "SpellCheckStep",
+    "SpacyTokenizationStep", "SpacyVectorizationStep", "BagOfWordsVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
-    "NormalizeVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
-    "LinearRegressionStep", "RandomForestClassificationStep",
+    "NormalizeVectorsStep","ScaleVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
+    "LinearRegressionStep", "RandomForestClassificationStep", "GaussNaiveBayesClassificationStep", "MultinomialNaiveBayesClassificationStep",
     "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
     "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep",
     "RandomForestRegressionStep", "SupportVectorRegressionStep", "SupportVectorClassificationStep"

@@ -9,7 +9,7 @@ class NormalizeVectorsStep(Step):
 
     def __init__(self, norm='l2'):
         """
-        Initializes the Normalization Step with the desired norm type.
+        Initializes a Normalization Step with the desired normalization type.
         Supported norm types: 'l1', 'l2' or 'max'.
 
         :param norm: The type of normalization. Default is 'l2'.
@@ -19,8 +19,7 @@ class NormalizeVectorsStep(Step):
 
     def run(self, data: dict) -> dict:
         """
-        Normalizes the 'vector' column in the DataFrame by scaling each vector
-        to the desired norm.
+        Normalizes the 'vector' column in the DataFrame by scaling each vector to the desired norm.
         """
         if "dataset" not in data:
             raise ValueError("No dataset found in data.")

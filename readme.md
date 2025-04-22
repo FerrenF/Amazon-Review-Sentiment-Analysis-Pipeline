@@ -50,19 +50,43 @@ Data is labelled on a scale of 1-5, similar to the star score used in the actual
 Labels are oversampled and stratified prior to being fed into a model. There are several models included in steps, both regressors and classifiers.
 They can be plugged into or unplugged from the pipeline and evaluated on using the appropriate evaluation step.
 
-## Results
+## Results (Best)
 
 Classification (Random Forest):
-[INFO] Best parameters from grid search: {'max_depth': None, 'min_samples_split': 2, 'n_estimators': 200}
+Vectorizer: spaCy
+Normalization: L2 Normalizer
+[INFO] Best parameters from grid search: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}
 [INFO] Training complete for random_forest_classification.
 [INFO] Evaluating classification model...
-[INFO] Accuracy: 0.8739
-[INFO] F1 Score (macro): 0.8736
+[INFO] Accuracy: 0.8804
+[INFO] F1 Score (macro): 0.8801
 
 
 Classification (Support Vector Machine):
+Vectorizer: spaCy
+Normalization: L2 Normalizer
 [INFO] Best parameters from grid search: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}
 [INFO] Training complete for support_vector_classification.
 [INFO] Evaluating classification model...
 [INFO] Accuracy: 0.7348
 [INFO] F1 Score (macro): 0.7340
+
+
+Classification (Multinomial Naive Bayes)
+Vectorizer: BOW
+Normalization/Scaler: MinMax Scaling
+[INFO] Best parameters from grid search: {'alpha': 0.1}
+[INFO] Training complete for multinomial_naive_bayes_classification.
+[INFO] Evaluating classification model...
+[INFO] Accuracy: 0.8399
+[INFO] F1 Score (macro): 0.8387
+
+
+Classification (Gaussian Naive Bayes)
+Vectorizer: BOW
+Normalization/Scaler: MinMax Scaling
+[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}
+[INFO] Training complete for gauss_naive_bayes_classification.
+[INFO] Evaluating classification model...
+[INFO] Accuracy: 0.7607
+[INFO] F1 Score (macro): 0.7575
