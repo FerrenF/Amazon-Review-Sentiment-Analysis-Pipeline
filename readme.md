@@ -40,6 +40,10 @@ reduce the likelihood of innaccurate predictions by taking the output betwen mul
 <br/>
 Using this method, we increased the original 1000 data points to 4200.
 
+### used:
+- tabularisai/multilingual-sentiment-analysis
+- LiYuan/amazon-review-sentiment-analysis
+
 ## Labels
 
 Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. These real ratings, however, are not factored in the model.
@@ -52,41 +56,44 @@ They can be plugged into or unplugged from the pipeline and evaluated on using t
 
 ## Results (Best)
 
-Classification (Random Forest):
-Vectorizer: spaCy
-Normalization: L2 Normalizer
-[INFO] Best parameters from grid search: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}
-[INFO] Training complete for random_forest_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.8804
-[INFO] F1 Score (macro): 0.8801
 
+### 10K Dataset (v2)
 
-Classification (Support Vector Machine):
-Vectorizer: spaCy
-Normalization: L2 Normalizer
-[INFO] Best parameters from grid search: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}
-[INFO] Training complete for support_vector_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.7348
-[INFO] F1 Score (macro): 0.7340
-
-
-Classification (Multinomial Naive Bayes)
-Vectorizer: BOW
-Normalization/Scaler: MinMax Scaling
-[INFO] Best parameters from grid search: {'alpha': 0.1}
-[INFO] Training complete for multinomial_naive_bayes_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.8399
-[INFO] F1 Score (macro): 0.8387
-
-
-Classification (Gaussian Naive Bayes)
-Vectorizer: BOW
-Normalization/Scaler: MinMax Scaling
-[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}
-[INFO] Training complete for gauss_naive_bayes_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.7607
-[INFO] F1 Score (macro): 0.7575
+Classification (Random Forest):  
+Vectorizer: spaCy  
+Normalization: L2 Normalizer  
+[INFO] Best parameters from grid search: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}  
+[INFO] Training complete for random_forest_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.8804  
+[INFO] F1 Score (macro): 0.8801  
+  
+  
+Classification (Support Vector Machine):  
+Vectorizer: spaCy  
+Normalization: L2 Normalizer  
+[INFO] Best parameters from grid search: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}  
+[INFO] Training complete for support_vector_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.7348  
+[INFO] F1 Score (macro): 0.7340  
+  
+  
+Classification (Multinomial Naive Bayes)  
+Vectorizer: BOW  
+Normalization/Scaler: MinMax Scaling  
+[INFO] Best parameters from grid search: {'alpha': 0.1}  
+[INFO] Training complete for multinomial_naive_bayes_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.8399  
+[INFO] F1 Score (macro): 0.8387  
+  
+  
+Classification (Gaussian Naive Bayes)  
+Vectorizer: BOW  
+Normalization/Scaler: MinMax Scaling  
+[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}  
+[INFO] Training complete for gauss_naive_bayes_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.7607  
+[INFO] F1 Score (macro): 0.7575  

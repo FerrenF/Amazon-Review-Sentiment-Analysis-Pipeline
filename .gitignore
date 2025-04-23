@@ -8,3 +8,4 @@
 .idea/workspace.xml
 /src/data/processed
 src/data/processed/data_processing.pkl
+/src/data/processed

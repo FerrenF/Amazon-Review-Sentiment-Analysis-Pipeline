@@ -5,19 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a4b74db-6dd4-4b64-b542-f893134bbc71" name="Changes" comment="merge">
-      <change afterPath="$PROJECT_DIR$/src/steps/bow_vectorization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/scale_vectors.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/train_gauss_naive_bayes_classification.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/steps/train_multinomial_naive_bayes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3/0.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3/1.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3_labelled/agreed.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3_labelled/disagreed.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3_labelled/labelled_output.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3_labelled/labelled_output_datamonke.jsonl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_v3_labelled/labelled_output_liyuan.jsonl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset_autoclassifier.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/dataset_autoclassifier.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/processed/data_processing.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/processed/data_processing.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/predictions.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/predictions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/normalize_vectors.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/normalize_vectors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/steps/spacy_vectorization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/steps/spacy_vectorization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/symbols_debug_sample.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataset_comparator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataset_comparator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/merge_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/merge_datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/pull_books_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/pull_books_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,13 +71,13 @@
     "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Project/Data Science Capstone 2025/src/data/unprocessed",
+    "last_opened_file_path": "D:/Project/Data Science Capstone 2025/src/dataset_v3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "configurable.group.editor",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -90,19 +91,20 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Project\Data Science Capstone 2025\src\dataset_v3" />
       <recent name="D:\Project\Data Science Capstone 2025\src\data\unprocessed" />
       <recent name="D:\Project\Data Science Capstone 2025\src\dataset_v2" />
       <recent name="D:\Project\Data Science Capstone 2025\src\dataset_v1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Project\Data Science Capstone 2025\src\dataset_v3_labelled" />
+      <recent name="D:\Project\Data Science Capstone 2025\src" />
       <recent name="D:\Project\Data Science Capstone 2025\src\dataset_v2_labelled" />
       <recent name="D:\Project\Data Science Capstone 2025\src\dataset_v2" />
       <recent name="D:\Project\Data Science Capstone 2025\src\books_data_asst_review" />
-      <recent name="D:\Project\Data Science Capstone 2025\src\common" />
-      <recent name="D:\Project\Data Science Capstone 2025\src\data\unprocessed" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.dataset_comparator">
     <configuration name="bow_vectorization" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Data Science Capstone 2025" />
       <option name="ENV_FILES" value="" />
@@ -220,11 +222,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.bow_vectorization" />
         <item itemvalue="Python.dataset_comparator" />
         <item itemvalue="Python.merge_datasets" />
         <item itemvalue="Python.pull_books_data" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.bow_vectorization" />
       </list>
     </recent_temporary>
   </component>
@@ -263,7 +265,8 @@
       <workItem from="1744869506258" duration="250000" />
       <workItem from="1744992344596" duration="6547000" />
       <workItem from="1745252067318" duration="1480000" />
-      <workItem from="1745353030171" duration="4521000" />
+      <workItem from="1745353030171" duration="10793000" />
+      <workItem from="1745373250260" duration="1222000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <option name="closed" value="true" />
@@ -306,10 +309,10 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$bow_vectorization.coverage" NAME="bow_vectorization Coverage Results" MODIFIED="1745362244518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/steps" />
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$pull_books_data.coverage" NAME="pull_books_data Coverage Results" MODIFIED="1744842449135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/utils" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$pull_books_data.coverage" NAME="pull_books_data Coverage Results" MODIFIED="1745369820905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/utils" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$dataset_builder.coverage" NAME="dataset_builder Coverage Results" MODIFIED="1743365936066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$merge_datasets.coverage" NAME="merge_datasets Coverage Results" MODIFIED="1744866262482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$merge_datasets.coverage" NAME="merge_datasets Coverage Results" MODIFIED="1745370000079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$main.coverage" NAME="main Coverage Results" MODIFIED="1745362504727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$dataset_comparator.coverage" NAME="dataset_comparator Coverage Results" MODIFIED="1744994133645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone_2025$dataset_comparator.coverage" NAME="dataset_comparator Coverage Results" MODIFIED="1745374365528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

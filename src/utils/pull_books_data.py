@@ -11,22 +11,22 @@ from datasets import load_dataset
 ###
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-output_path = os.path.join(script_dir, "../books_data_asst_review")
+output_path = os.path.join(script_dir, "../books_data_low_review")
 os.makedirs(output_path, exist_ok=True)
 
 output_suffix = ".jsonl"
 
 # We are pulling 1000 records from the dataset
-pull_total = 4000
+pull_total = 25000
 
 # Max rating to filter on (e.g., 3.0 will include 1-3 star reviews only)
-max_rating = 5.0
+max_rating = 3.0
 
 # And randomizing the records we select
 randomize = True
 
 # We are splitting this work among 4 members
-divisions = 4
+divisions = 1
 
 # Only use first 1 million entries. There are 29 million. You need this.
 sample_size = 5_000_000
