@@ -185,8 +185,8 @@ Classification (Support Vector Machine):
 Vectorizer: spaCy  
 Normalization/Scaler: MinMax Scaler  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}
-[INFO] Training complete for support_vector_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.9050
-[INFO] F1 Score (macro): 0.9047
+[INFO] Best parameters from grid search: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
+[INFO] Training complete for support_vector_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.9050  
+[INFO] F1 Score (macro): 0.9047  
