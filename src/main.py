@@ -82,13 +82,15 @@ project_stages = [
         #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
         SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
-    ]),
+    ],  on_complete=stage_finished_pickler_callback),
     Stage("evaluation", [
         # Here, we use our testing set to predict a set of labels for data that only we know the true value of.
         ClassificationEvaluationStep(metrics=["f1", "accuracy"]),
         OutputPredictionsStep(save_to_file=True, filename="predictions.json")
     ])
 ]
+
+logging.basicConfig(filename="pipeline_log.txt", filemode='a', format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', level=logging.INFO)
 
 data = dict()
 

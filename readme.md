@@ -66,127 +66,118 @@ Classification (Random Forest):
 Vectorizer: spaCy  
 Normalization: L2 Normalizer  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}  
-[INFO] Training complete for random_forest_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.8804  
-[INFO] F1 Score (macro): 0.8801  
+Best Parameters: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}  
+Model: random_forest_classification.
+Accuracy: 0.8804  
+F1 Score (macro): 0.8801  
   
+
 Classification (Random Forest):  
 Vectorizer: spaCy  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 300}  
-[INFO] Training complete for random_forest_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.8812  
-[INFO] F1 Score (macro): 0.8813  
+Best Parameters: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 300}  
+Model: random_forest_classification.
+Accuracy: 0.8812  
+F1 Score (macro): 0.8813  
   
+
 Classification (Support Vector Machine):  
 Vectorizer: spaCy  
 Normalization: L2 Normalizer  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}  
-[INFO] Training complete for support_vector_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.7348  
-[INFO] F1 Score (macro): 0.7340  
-  
+Best Parameters: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}  
+Model: support_vector_classification.
+Accuracy: 0.7348  
+F1 Score (macro): 0.7340    
+
 
 Classification (Support Vector Machine):  
 Vectorizer: spaCy  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
-[INFO] Training complete for support_vector_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.8464  
-[INFO] F1 Score (macro): 0.8463  
+Best Parameters: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
+Model: support_vector_classification.
+Accuracy: 0.8464  
+F1 Score (macro): 0.8463  
+ 
 
-  
 Classification (Multinomial Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'alpha': 0.1}  
-[INFO] Training complete for multinomial_naive_bayes_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.8399  
-[INFO] F1 Score (macro): 0.8387  
-  
-  
+Best Parameters: {'alpha': 0.1}  
+Model: multinomial_naive_bayes_classification.
+Accuracy: 0.8399  
+F1 Score (macro): 0.8387  
+
+
 Classification (Gaussian Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}  
-[INFO] Training complete for gauss_naive_bayes_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.7607  
-[INFO] F1 Score (macro): 0.7575  
+Best Parameters: {'var_smoothing': 1e-07}  
+Model: gauss_naive_bayes_classification.
+Accuracy: 0.7607  
+F1 Score (macro): 0.7575  
 
 
 ### 22k Dataset (v3)
+
 Classification (Random Forest)  
 Vectorizer: spaCy  
 Normalization/Scaler: L2 Normalizer  
 Balancing: Oversample (30k total)  
-[INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}  
-[INFO] Training complete for random_forest_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.9134  
-[INFO] F1 Score (macro): 0.9135  
+Best Parameters: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}  
+Model: random_forest_classification.
+Accuracy: 0.9134  
+F1 Score (macro): 0.9135  
 
 
 Classification (Random Forest)  
 Vectorizer: spaCy  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample (30k total)  
-[INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}  
-[INFO] Training complete for random_forest_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.9120  
-[INFO] F1 Score (macro): 0.9121  
+Best Parameters: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}  
+Model: random_forest_classification.
+Accuracy: 0.9120  
+F1 Score (macro): 0.9121  
 
 
 Classification (Gaussian Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  (30k total)  
-[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}  
-[INFO] Training complete for gauss_naive_bayes_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.6342  
-[INFO] F1 Score (macro): 0.6327  
+Best Parameters: {'var_smoothing': 1e-07}  
+Model: gauss_naive_bayes_classification.
+Accuracy: 0.6342  
+F1 Score (macro): 0.6327  
 
 Classification (Multinomial Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  (30k total)  
-[INFO] Best parameters from grid search: {'alpha': 0.1}  
-[INFO] Training complete for multinomial_naive_bayes_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.7991  
-[INFO] F1 Score (macro): 0.7992  
+Best Parameters: {'alpha': 0.1}  
+Model: multinomial_naive_bayes_classification.
+Accuracy: 0.7991  
+F1 Score (macro): 0.7992  
 
 
 Classification (Support Vector Machine):  
 Vectorizer: spaCy  
 Normalization/Scaler: L2 Normalizer  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
-[INFO] Training complete for support_vector_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.7406  
-[INFO] F1 Score (macro): 0.7405  
+Best Parameters: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
+Model: support_vector_classification.
+Accuracy: 0.7406  
+F1 Score (macro): 0.7405  
 
 
 Classification (Support Vector Machine):  
 Vectorizer: spaCy  
 Normalization/Scaler: MinMax Scaler  
 Balancing: Oversample  
-[INFO] Best parameters from grid search: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
-[INFO] Training complete for support_vector_classification.  
-[INFO] Evaluating classification model...  
-[INFO] Accuracy: 0.9050  
-[INFO] F1 Score (macro): 0.9047  
+Best Parameters: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
+Model: support_vector_classification.
+Accuracy: 0.9050  
+F1 Score (macro): 0.9047  

@@ -1,0 +1,13 @@
+dataset_size,model name,vectorizer/scaler,balancing,f1 score,accuracy
+10K,random_forest_classification,spaCy / L2 Normalizer,Oversample,0.8801,0.8804
+10K,random_forest_classification,spaCy / MinMax Scaling,Oversample,0.8813,0.8812
+10K,support_vector_classification,spaCy / L2 Normalizer,Oversample,0.7340,0.7348
+10K,support_vector_classification,spaCy / MinMax Scaling,Oversample,0.8463,0.8464
+10K,multinomial_naive_bayes_classification,BOW / MinMax Scaling,Oversample,0.8387,0.8399
+10K,gauss_naive_bayes_classification,BOW / MinMax Scaling,Oversample,0.7575,0.7607
+22K,random_forest_classification,spaCy / L2 Normalizer,Oversample,0.9135,0.9134
+22K,random_forest_classification,spaCy / MinMax Scaling,Oversample,0.9121,0.9120
+22K,gauss_naive_bayes_classification,BOW / MinMax Scaling,Oversample,0.6327,0.6342
+22K,multinomial_naive_bayes_classification,BOW / MinMax Scaling,Oversample,0.7992,0.7991
+22K,support_vector_classification,spaCy / L2 Normalizer,Oversample,0.7405,0.7406
+22K,support_vector_classification,spaCy / MinMax Scaling,Oversample,0.9047,0.9050
