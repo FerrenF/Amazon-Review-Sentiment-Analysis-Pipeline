@@ -41,7 +41,7 @@ reduce the likelihood of innaccurate predictions by taking the output betwen mul
 Using this method, we increased the original 1000 data points to 4200 data points out of 10000 pulled. I repeat this process
 for dataset v3 with 21,000 data points out of 50000 used.
 
-### Models Used:
+### Models Used to autoclassify:
 - tabularisai/multilingual-sentiment-analysis
 - LiYuan/amazon-review-sentiment-analysis
 - DataMonke/bert-base-uncased-finetuned-review-sentiment-analysis
@@ -49,7 +49,7 @@ for dataset v3 with 21,000 data points out of 50000 used.
   
 ## Labels
 
-Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. These real ratings, however, are not factored in the model.
+Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. A label of '1' would represent a very negative sentiment. Conversely, a label of '5' would represent a very positive sentiment. These labels are not the same as the ratings given in the dataset, and these are not factored into the model.
 
 
 ## Methods
@@ -57,8 +57,16 @@ Data is labelled on a scale of 1-5, similar to the star score used in the actual
 Labels are oversampled and stratified prior to being fed into a model. There are several models included in steps, both regressors and classifiers.
 They can be plugged into or unplugged from the pipeline and evaluated on using the appropriate evaluation step.
 
-## Results (Best)
 
+## Results (Visual)
+
+![F1 Score](f1_score_comparison.png)
+![Accuracy](accuracy_comparison.png)
+![Confusion Matrix](confusion.png)
+![Wordcloud (Very Negative Sentiment)](wordcloud_1.png)
+![Wordcloud (Very Positive Sentiment)](wordcloud_5.png)
+
+## Results (Data)
 
 ### 10K Dataset (v2)
 
