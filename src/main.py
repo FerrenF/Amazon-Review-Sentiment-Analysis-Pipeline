@@ -25,14 +25,14 @@ svr_param_grid = {
     'kernel': ['poly']#['rbf', 'poly']
 }
 svc_param_grid = {
-    'C': [100, 200],  # [0.1, 1, 10, 100],
+    'C': [200],  # [0.1, 1, 10, 100],
     'gamma': ['scale'],#, 'auto', 0.01, 0.1],
     'kernel': ['poly']#['rbf', 'poly']
 }
 rf_classifier_param_grid = {
     "n_estimators": [300, 400],
-    "max_depth": [None, 10, 25],
-    "min_samples_split": [2, 5],
+    "max_depth": [None, 25],
+    "min_samples_split": [5],
     "min_samples_leaf": [1, 5]
 }
 # Last Best Parameters:  {'C': 10, 'epsilon': 0.2, 'gamma': 'scale', 'kernel': 'rbf'}
@@ -42,7 +42,7 @@ project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-        LoadCheckpointIfExists("processing", "data", is_pickle=True),
+        #LoadCheckpointIfExists("processing", "data", is_pickle=True),
         CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
@@ -66,10 +66,10 @@ project_stages = [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
-        BagOfWordsVectorizationStep(),
+        #BagOfWordsVectorizationStep(),
         SpacyVectorizationStep(model="en_core_web_md"),
-        #ScaleVectorsStep(),
-        NormalizeVectorsStep(),
+        ScaleVectorsStep(),
+        #NormalizeVectorsStep(),
         BalanceLabelsStep(sample_method="oversample"),
 
     ],  on_complete=stage_finished_pickler_callback),
