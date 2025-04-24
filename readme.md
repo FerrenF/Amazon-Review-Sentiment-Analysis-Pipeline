@@ -111,22 +111,22 @@ Classification (Random Forest)
 Vectorizer: spaCy  
 Normalization: L2 Normalizer  
 Balancing: Oversample (30k total)  
-[INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}
-[INFO] Training complete for random_forest_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.9134
-[INFO] F1 Score (macro): 0.9135
+[INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}  
+[INFO] Training complete for random_forest_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.9134  
+[INFO] F1 Score (macro): 0.9135  
 
 
 Classification (Gaussian Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  (30k total)  
-[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}
-[INFO] Training complete for gauss_naive_bayes_classification.
-[INFO] Evaluating classification model...
-[INFO] Accuracy: 0.6342
-[INFO] F1 Score (macro): 0.6327
+[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}  
+[INFO] Training complete for gauss_naive_bayes_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.6342  
+[INFO] F1 Score (macro): 0.6327  
 
 Classification (Multinomial Naive Bayes)  
 Vectorizer: BOW  
