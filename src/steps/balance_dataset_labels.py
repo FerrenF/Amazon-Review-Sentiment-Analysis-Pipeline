@@ -43,7 +43,7 @@ class BalanceLabelsStep(Step):
 
         balanced_df = pd.concat(dfs).sample(frac=1, random_state=42).reset_index(drop=True)
         logging.info(f"Label balancing complete using {self.method} method.")
-        counts = df["label"].value_counts()
+        counts = balanced_df["label"].value_counts()
         logging.info(f"Label counts after balancing: \n{counts}")
 
         data["dataset"] = balanced_df

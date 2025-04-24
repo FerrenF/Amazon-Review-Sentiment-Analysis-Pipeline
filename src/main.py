@@ -19,21 +19,21 @@ def stage_finished_pickler_callback(stage: Stage, _data: dict):
 
 # For SVR training (also SVC)
 svr_param_grid = {
-    'C': [0.1, 1, 10, 100],
+    'C': [100, 200], #[0.1, 1, 10, 100],
     'epsilon': [0.01, 0.1, 0.2],
-    'gamma': ['scale', 'auto', 0.01, 0.1],
-    'kernel': ['rbf', 'poly']
+    'gamma': ['scale'],#, 'auto', 0.01, 0.1],
+    'kernel': ['poly']#['rbf', 'poly']
 }
 svc_param_grid = {
-    'C': [0.1, 1, 10, 100],
-    'gamma': ['scale', 'auto', 0.01, 0.1],
-    'kernel': ['rbf', 'poly']
+    'C': [100, 200],  # [0.1, 1, 10, 100],
+    'gamma': ['scale'],#, 'auto', 0.01, 0.1],
+    'kernel': ['poly']#['rbf', 'poly']
 }
 rf_classifier_param_grid = {
-    "n_estimators": [100, 200, 300, 500],
-    "max_depth": [None, 10, 20, 25],
-    "min_samples_split": [2, 5, 10],
-    "min_samples_leaf": [1, 5, 10]
+    "n_estimators": [300, 400],
+    "max_depth": [None, 10, 25],
+    "min_samples_split": [2, 5],
+    "min_samples_leaf": [1, 5]
 }
 # Last Best Parameters:  {'C': 10, 'epsilon': 0.2, 'gamma': 'scale', 'kernel': 'rbf'}
 
@@ -67,8 +67,8 @@ project_stages = [
         # perform analysis of, and extract numeric features from the text.
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
         BagOfWordsVectorizationStep(),
-        #SpacyVectorizationStep(model="en_core_web_md"),
-        ScaleVectorsStep(),
+        SpacyVectorizationStep(model="en_core_web_md"),
+        #ScaleVectorsStep(),
         NormalizeVectorsStep(),
         BalanceLabelsStep(sample_method="oversample"),
 
@@ -77,10 +77,10 @@ project_stages = [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
-        GaussNaiveBayesClassificationStep(grid_search=True),
+        #GaussNaiveBayesClassificationStep(grid_search=True),
         #MultinomialNaiveBayesClassificationStep(grid_search=True),
         #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
-        #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
+        SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
     ]),
     Stage("evaluation", [

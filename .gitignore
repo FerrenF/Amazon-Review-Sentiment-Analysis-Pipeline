@@ -9,3 +9,7 @@
 /src/data/processed
 src/data/processed/data_processing.pkl
 /src/data/processed
+/src/books_data_low_review/
+/src/books_data_asst_review/
+/src/output/
+/src/data/processed/

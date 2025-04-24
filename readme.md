@@ -38,12 +38,15 @@ reduce the likelihood of innaccurate predictions by taking the output betwen mul
 (If both models think a particular text is rated 5 for very positve, then we keep it. If there is a minor disagreement, such as one model predicting 4 and the other 5, then we take the higher or 'stronger' score. Otherwise, the point is discarded.)
 <br/>
 <br/>
-Using this method, we increased the original 1000 data points to 4200.
+Using this method, we increased the original 1000 data points to 4200 data points out of 10000 pulled. I repeat this process
+for dataset v3 with 21,000 data points out of 50000 used.
 
-### used:
+### Models Used:
 - tabularisai/multilingual-sentiment-analysis
 - LiYuan/amazon-review-sentiment-analysis
+- DataMonke/bert-base-uncased-finetuned-review-sentiment-analysis
 
+  
 ## Labels
 
 Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. These real ratings, however, are not factored in the model.
@@ -62,6 +65,7 @@ They can be plugged into or unplugged from the pipeline and evaluated on using t
 Classification (Random Forest):  
 Vectorizer: spaCy  
 Normalization: L2 Normalizer  
+Balancing: Oversample  
 [INFO] Best parameters from grid search: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}  
 [INFO] Training complete for random_forest_classification.  
 [INFO] Evaluating classification model...  
@@ -72,6 +76,7 @@ Normalization: L2 Normalizer
 Classification (Support Vector Machine):  
 Vectorizer: spaCy  
 Normalization: L2 Normalizer  
+Balancing: Oversample  
 [INFO] Best parameters from grid search: {'C': 100, 'gamma': 'scale', 'kernel': 'poly'}  
 [INFO] Training complete for support_vector_classification.  
 [INFO] Evaluating classification model...  
@@ -82,6 +87,7 @@ Normalization: L2 Normalizer
 Classification (Multinomial Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
 [INFO] Best parameters from grid search: {'alpha': 0.1}  
 [INFO] Training complete for multinomial_naive_bayes_classification.  
 [INFO] Evaluating classification model...  
@@ -92,8 +98,53 @@ Normalization/Scaler: MinMax Scaling
 Classification (Gaussian Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
 [INFO] Best parameters from grid search: {'var_smoothing': 1e-07}  
 [INFO] Training complete for gauss_naive_bayes_classification.  
 [INFO] Evaluating classification model...  
 [INFO] Accuracy: 0.7607  
 [INFO] F1 Score (macro): 0.7575  
+
+
+### 22k Dataset (v3)
+Classification (Random Forest)
+Vectorizer: spaCy  
+Normalization: L2 Normalizer  
+Balancing: Oversample (30k total)  
+[INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}
+[INFO] Training complete for random_forest_classification.
+[INFO] Evaluating classification model...
+[INFO] Accuracy: 0.9134
+[INFO] F1 Score (macro): 0.9135
+
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: BOW  
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  (30k total)  
+[INFO] Best parameters from grid search: {'var_smoothing': 1e-07}
+[INFO] Training complete for gauss_naive_bayes_classification.
+[INFO] Evaluating classification model...
+[INFO] Accuracy: 0.6342
+[INFO] F1 Score (macro): 0.6327
+
+Classification (Multinomial Naive Bayes)  
+Vectorizer: BOW  
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  (30k total)  
+[INFO] Best parameters from grid search: {'alpha': 0.1}  
+[INFO] Training complete for multinomial_naive_bayes_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.7991  
+[INFO] F1 Score (macro): 0.7992  
+
+
+Classification (Support Vector Machine):  
+Vectorizer: spaCy  
+Normalization: L2 Normalizer  
+Balancing: Oversample  
+[INFO] Best parameters from grid search: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}  
+[INFO] Training complete for support_vector_classification.  
+[INFO] Evaluating classification model...  
+[INFO] Accuracy: 0.7406  
+[INFO] F1 Score (macro): 0.7405  
