@@ -14,7 +14,8 @@ class SpacyVectorizationStep(Step):
 
     def __init__(self, model="en_core_web_md", numeric_type: Type = np.float32, **model_kwargs):
         """
-               Initializes the BoW vectorization step using sklearn's CountVectorizer.
+             Initializes a vectorization step using spacy. The default behavior of spacy's document vectorization is to
+             produce an average of the token vectors given by word embeddings.
 
                :param model: The model to use (e.g. en_core_web_sm/en_core_web_md).
                :param numeric_type: The numpy numeric type to case vector components to.

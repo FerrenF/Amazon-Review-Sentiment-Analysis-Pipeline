@@ -49,7 +49,28 @@ for dataset v3 with 21,000 data points out of 50000 used.
   
 ## Labels
 
-Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. A label of '1' would represent a very negative sentiment. Conversely, a label of '5' would represent a very positive sentiment. These labels are not the same as the ratings given in the dataset, and these are not factored into the model.
+Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. A label of '1' would represent a very negative sentiment. Conversely, a label of '5' would represent a very positive sentiment.
+These labels are not the same as the ratings (e.g. 1-star or 5-star) given in the dataset, and these ratings are not factored into the model.
+
+#### Label Distribution
+The balance of labels in the dataset is not distributed equally. To make them such, oversampling or undersampling is performed. The evaluations below all had their model use oversampling to achieve distributive balance.
+
+2025-04-27 15:33:52,370 [INFO] Label counts before balancing: 
+label
+5    1237
+2     787
+1     688
+3     668
+4     346
+Name: count, dtype: int64
+2025-04-27 15:33:52,382 [INFO] Label balancing complete using oversample method.
+2025-04-27 15:33:52,383 [INFO] Label counts after balancing: 
+label
+4    1237
+2    1237
+1    1237
+5    1237
+3    1237
 
 
 ## Methods
@@ -120,15 +141,34 @@ Accuracy: 0.8399
 F1 Score (macro): 0.8387  
 
 
+Classification (Multinomial Naive Bayes)  
+Vectorizer: TF-IDF    
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best Parameters: {'alpha': 0.1}  
+Model: multinomial_naive_bayes_classification.
+Accuracy: 0.8391   
+F1 Score (macro): 0.8375  
+
+
 Classification (Gaussian Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
 Balancing: Oversample  
 Best Parameters: {'var_smoothing': 1e-07}  
-Model: gauss_naive_bayes_classification.
+Model: gauss_naive_bayes_classification.  
 Accuracy: 0.7607  
 F1 Score (macro): 0.7575  
 
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: TF-IDF    
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-07}  
+Model: gauss_naive_bayes_classification.  
+Accuracy: 0.7437  
+F1 Score (macro): 0.7392  
 
 ### 22k Dataset (v3)
 

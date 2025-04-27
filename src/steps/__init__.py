@@ -35,12 +35,13 @@ from .train_gauss_naive_bayes_classification import GaussNaiveBayesClassificatio
 from .train_multinomial_naive_bayes import MultinomialNaiveBayesClassificationStep
 from .scale_vectors import ScaleVectorsStep
 from .bow_vectorization import BagOfWordsVectorizationStep
+from .tfidf_vectorization import TfidfVectorizationStep
 
 __all__ = [
     "ArtifactRemovalStep",
     "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
-    "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep",
+    "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep", "TfidfVectorizationStep",
     "SpacyTokenizationStep", "SpacyVectorizationStep", "BagOfWordsVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
     "NormalizeVectorsStep","ScaleVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
