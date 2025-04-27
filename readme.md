@@ -72,6 +72,24 @@ label
 5    1237
 3    1237
 
+2025-04-27 16:10:08,570 [INFO] Label counts before balancing: 
+label
+5    7487
+3    3924
+2    3029
+1    2784
+4    1982
+Name: count, dtype: int64
+2025-04-27 16:10:08,673 [INFO] Label balancing complete using oversample method.
+2025-04-27 16:10:08,675 [INFO] Label counts after balancing: 
+label
+4    7487
+1    7487
+5    7487
+3    7487
+2    7487
+Name: count, dtype: int64
+
 
 ## Methods
 
@@ -201,6 +219,17 @@ Model: gauss_naive_bayes_classification.
 Accuracy: 0.6342  
 F1 Score (macro): 0.6327  
 
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: TF-IDF  
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  (30k total)  
+Best Parameters: {'var_smoothing': 1e-07}  
+Model: gauss_naive_bayes_classification.
+Accuracy: 0.6772  
+F1 Score (macro): 0.6712  
+
+
 Classification (Multinomial Naive Bayes)  
 Vectorizer: BOW  
 Normalization/Scaler: MinMax Scaling  
@@ -209,6 +238,16 @@ Best Parameters: {'alpha': 0.1}
 Model: multinomial_naive_bayes_classification.
 Accuracy: 0.7991  
 F1 Score (macro): 0.7992  
+
+
+Classification (Multinomial Naive Bayes)  
+Vectorizer: TF-IDF  
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  (30k total)  
+Best Parameters: {'alpha': 0.1}  
+Model: multinomial_naive_bayes_classification.
+Accuracy: 0.8274  
+F1 Score (macro): 0.8270  
 
 
 Classification (Support Vector Machine):  

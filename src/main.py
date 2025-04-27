@@ -78,8 +78,8 @@ project_stages = [
         # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
-        GaussNaiveBayesClassificationStep(grid_search=True),
-        #MultinomialNaiveBayesClassificationStep(grid_search=True),
+        #GaussNaiveBayesClassificationStep(grid_search=True),
+        MultinomialNaiveBayesClassificationStep(grid_search=True),
         #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
         #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
