@@ -34,7 +34,11 @@ rf_classifier_param_grid = {
     "min_samples_split": [5],
     "min_samples_leaf": [1, 5]
 }
-
+knn_param_grid = {
+            "n_neighbors": [3, 5, 7, 9],
+            "weights": ["uniform", "distance"],
+            "metric": ["euclidean", "manhattan", "minkowski"]
+}
 
 # The project pipeline is divided into 5 stages: Loading, Cleaning, Processing, Training, and Evaluation.
 # It can be divided into more, but is kept this way for simplicity.
@@ -79,7 +83,8 @@ project_stages = [
         # then returned and saved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
         #GaussNaiveBayesClassificationStep(grid_search=True),
-        MultinomialNaiveBayesClassificationStep(grid_search=True),
+        #MultinomialNaiveBayesClassificationStep(grid_search=True),
+        KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
         #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
         #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 

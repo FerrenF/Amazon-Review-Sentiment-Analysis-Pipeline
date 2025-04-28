@@ -36,6 +36,7 @@ from .train_multinomial_naive_bayes import MultinomialNaiveBayesClassificationSt
 from .scale_vectors import ScaleVectorsStep
 from .bow_vectorization import BagOfWordsVectorizationStep
 from .tfidf_vectorization import TfidfVectorizationStep
+from .train_k_nearest_neighbors import KNearestNeighborsClassificationStep
 
 __all__ = [
     "ArtifactRemovalStep",
@@ -47,6 +48,6 @@ __all__ = [
     "NormalizeVectorsStep","ScaleVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
     "LinearRegressionStep", "RandomForestClassificationStep", "GaussNaiveBayesClassificationStep", "MultinomialNaiveBayesClassificationStep",
     "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
-    "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep",
+    "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep", 'KNearestNeighborsClassificationStep',
     "RandomForestRegressionStep", "SupportVectorRegressionStep", "SupportVectorClassificationStep"
 ]
