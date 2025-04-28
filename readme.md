@@ -188,6 +188,52 @@ Model: gauss_naive_bayes_classification.
 Accuracy: 0.7437  
 F1 Score (macro): 0.7392  
 
+
+Classification (K-Nearest-Neighbors)  
+Vectorizer: TF-IDF    
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'metric': 'euclidean', 'n_neighbors': 3, 'weights': 'distance'}  
+Training complete for k_nearest_neighbors_classification.  
+Evaluating classification model...  
+Accuracy: 0.8230  
+F1 Score (macro): 0.8240  
+
+
+Classification (K-Nearest-Neighbors)  
+Vectorizer: BOW     
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'distance'}  
+Training complete for k_nearest_neighbors_classification.  
+Evaluating classification model...  
+Accuracy: 0.8529  
+F1 Score (macro): 0.8551  
+
+
+Classification (K-Nearest-Neighbors)  
+Vectorizer: BOW     
+Normalization/Scaler: L2 Normalization  
+Balancing: Oversample  
+Best parameters from grid search:{'metric': 'euclidean', 'n_neighbors': 2, 'weights': 'distance'}   
+Training complete for k_nearest_neighbors_classification.  
+Evaluating classification model...  
+Accuracy: 0.8367  
+F1 Score (macro): 0.8358    
+
+
+Classification (K-Nearest-Neighbors)  
+Vectorizer: Spacy     
+Normalization/Scaler: L2 Normalization  
+Balancing: Oversample  
+Best parameters from grid search:{'metric': 'manhattan', 'n_neighbors': 2, 'weights': 'distance'}   
+Training complete for k_nearest_neighbors_classification.  
+Evaluating classification model...  
+Accuracy: 0.8383    
+F1 Score (macro): 0.8372    
+
+
+
 ### 22k Dataset (v3)
 
 Classification (Random Forest)  
