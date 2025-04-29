@@ -314,3 +314,27 @@ Best Parameters: {'C': 200, 'gamma': 'scale', 'kernel': 'poly'}
 Model: support_vector_classification.
 Accuracy: 0.9050  
 F1 Score (macro): 0.9047  
+
+
+Classification (K-Nearest-Neighbors)  
+Vectorizer: Spacy     
+Normalization/Scaler: L2 Normalization  
+Balancing: Oversample  
+Best parameters from grid search:{'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'distance'}     
+Training complete for k_nearest_neighbors_classification.  
+Evaluating classification model...  
+Accuracy: 0.8748      
+F1 Score (macro): 0.8736  
+
+
+Classification (K-Nearest-Neighbors)  
+Vectorizer: Spacy     
+Normalization/Scaler: MinMax Scaler  
+Balancing: Oversample  
+Best parameters from grid search:{'metric': 'manhattan', 'n_neighbors': 3, 'weights': 'distance'}     
+Training complete for k_nearest_neighbors_classification.  
+Evaluating classification model...  
+Accuracy: 0.8743      
+F1 Score (macro): 0.8730  
+
+

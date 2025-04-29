@@ -18,7 +18,7 @@ class CleanDatasetStep(Step):
 
         path_object = pathlib.Path(PROCESSED_DATA_DIR)
         if not path_object.exists():
-            raise FileNotFoundError(f"Input path for unprocessed data at {UNPROCESSED_DATA_DIR} does not exist.")
+            path_object.mkdir(parents=True, exist_ok=True)
 
         # Iterate through objects in the processed data directory.
         for child in path_object.iterdir():

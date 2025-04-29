@@ -35,9 +35,9 @@ rf_classifier_param_grid = {
     "min_samples_leaf": [1, 5]
 }
 knn_param_grid = {
-            "n_neighbors": [2, 3],
+            "n_neighbors": [3],
             "weights": ["distance"],
-            "metric": ["euclidean", "manhattan"]
+            "metric": ["manhattan"]
 }
 
 # The project pipeline is divided into 5 stages: Loading, Cleaning, Processing, Training, and Evaluation.
@@ -46,7 +46,7 @@ project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-        LoadCheckpointIfExists("cleaning", "data", is_pickle=False),
+        LoadCheckpointIfExists("processing", "data", is_pickle=True),
         CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
@@ -70,11 +70,11 @@ project_stages = [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
-        #TfidfVectorizationStep(),
+        TfidfVectorizationStep(),
         #BagOfWordsVectorizationStep(),
-        SpacyVectorizationStep(model="en_core_web_md"),
-        #ScaleVectorsStep(),
-        NormalizeVectorsStep(),
+        #SpacyVectorizationStep(model="en_core_web_md"),
+        ScaleVectorsStep(),
+        #NormalizeVectorsStep(),
         BalanceLabelsStep(sample_method="oversample"),
 
     ],  on_complete=stage_finished_pickler_callback),

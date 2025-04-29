@@ -17,7 +17,9 @@ class RemoveHTMLTagsStep(Step):
         def remove_html_tags(text):
             if not isinstance(text, str):
                 return text
-            # Remove HTML tags using regex
+            # Replace <br> and <br /> tags with a period
+            text = re.sub(r'<br\s*/?>', '.', text, flags=re.IGNORECASE)
+            # Remove all other HTML tags
             clean_text = re.sub(r'<.*?>', '', text)
             return clean_text
 
