@@ -11,6 +11,8 @@ dataset_size,model name,vectorizer/scaler,balancing,f1 score,accuracy
 10K,k_nearest_neighbors_classification,BOW / MinMax Scaling,Oversample,0.8551,0.8529
 10K,k_nearest_neighbors_classification,BOW / L2 Normalizer,Oversample,0.8358,0.8367
 10K,k_nearest_neighbors_classification,spaCy / L2 Normalizer,Oversample,0.8372,0.8383
+10K,logistic_regression_classification,BOW / MinMax Scaling,Oversample,0.8918,0.8925
+10K,logistic_regression_classification,TF-IDF / MinMax Scaling,Oversample,0.8899,0.8901
 22K,random_forest_classification,spaCy / L2 Normalizer,Oversample,0.9135,0.9134
 22K,random_forest_classification,spaCy / MinMax Scaling,Oversample,0.9121,0.9120
 22K,gauss_naive_bayes_classification,BOW / MinMax Scaling,Oversample,0.6327,0.6342
