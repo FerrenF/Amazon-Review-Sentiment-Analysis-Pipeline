@@ -64,7 +64,7 @@ project_stages = [
         # or performing stemming.
         RemoveHTMLTagsStep(),
         SymbolSeparationStep(),
-        ApplyWordThresholdStep(min_length = 3, max_length = 200),
+        ApplyWordThresholdStep(min_length = 3, max_length = 120),
         ExpandContractionsStep(),
 
         # Better for spaCy tokenization
@@ -75,17 +75,20 @@ project_stages = [
 
         NormalizePunctuationStep(),
         HyphenChainNormalizerStep(),
-        WhitespaceTrimmingStep(),
+
         RemoveAmznNoiseTokensStep(),
         SpellCheckStep(),
         SpaceAndBalanceQuotesStep(),
         TokenMergeCorrectionStep(),
-        CombineTextColumnsStep()
+        WhitespaceTrimmingStep(),
+        CombineTextColumnsStep(separator=" ")
     ],  on_complete=stage_finished_callback),
     Stage("processing", [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
-        SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
+        SpacyTokenizationStep(model="en_core_web_sm", use_lemmas=True, disable=["parser", "ner"]),
+        ChainNegationsStep(model="en_core_web_sm", max_chain_length=2, targets=["text"], disable=["parser", "ner"]),
+        RemoveStopWordsStep(),
         TfidfVectorizationStep(),
         #BagOfWordsVectorizationStep(),
         #SpacyVectorizationStep(model="en_core_web_md"),

@@ -9,8 +9,10 @@ from core.step import Step
 class SpacyTokenizationStep(Step):
     name = "spacy_tokenization"
 
-    def __init__(self, model: str = "en_core_web_sm", **model_kwargs):
+    def __init__(self, model: str = "en_core_web_sm", use_lemmas=False, remove_stops=False, **model_kwargs):
         self.model = model
+        self.use_lemmas = use_lemmas
+        self.remove_stops = remove_stops
         try:
             self.nlp = spacy.load(model, **model_kwargs)
         except OSError:
@@ -28,10 +30,16 @@ class SpacyTokenizationStep(Step):
             if not isinstance(text, str):
                 return text
             doc = self.nlp(text)
-            return " ".join([token.text for token in doc if not token.is_space])
+            return " ".join([token.text for token in doc if not (token.is_space or (self.remove_stops and token.is_stop))])
+
+        def tokenize_and_lemmatize(text):
+            if not isinstance(text, str):
+                return []
+            doc = self.nlp(text)
+            return " ".join([token.lemma_.lower() for token in doc if not token.is_punct and not (token.is_space or (self.remove_stops and token.is_stop))])
 
         logging.info(f"Tokenizing text with spaCy model '{self.model}'...")
-        df["text"] = df["text"].apply(tokenize)
+        df["text"] = df["text"].apply(tokenize if not self.use_lemmas else tokenize_and_lemmatize)
 
         logging.info("Tokenization complete.")
         data["dataset"] = df

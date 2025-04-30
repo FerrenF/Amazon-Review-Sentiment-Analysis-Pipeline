@@ -40,9 +40,11 @@ from .tfidf_vectorization import TfidfVectorizationStep
 from .train_k_nearest_neighbors import KNearestNeighborsClassificationStep
 from .remove_amzn_noise import RemoveAmznNoiseTokensStep
 from .expand_contractions import ExpandContractionsStep
-
+from .chain_negations_step import ChainNegationsStep
+from .remove_stopwords import RemoveStopWordsStep
 __all__ = [
-    "ArtifactRemovalStep", "RemoveAmznNoiseTokensStep", "ExpandContractionsStep",
+    "ArtifactRemovalStep", "RemoveAmznNoiseTokensStep", "ExpandContractionsStep", "ChainNegationsStep",
+    "RemoveStopWordsStep",
     "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
     "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep", "TfidfVectorizationStep",
