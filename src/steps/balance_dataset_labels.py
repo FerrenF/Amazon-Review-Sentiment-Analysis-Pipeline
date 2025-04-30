@@ -26,11 +26,15 @@ class BalanceLabelsStep(Step):
         X_train = data[self.target_x]
         y_train = data[self.target_y]
 
-        df = pd.DataFrame(X_train)  # Assumes X_train is a list of lists or 2D array
-        df["label"] = pd.Series(y_train)  # Add the label column
+        if hasattr(X_train, 'toarray'):
+            df = pd.DataFrame(X_train.toarray())
+        else:
+            df = pd.DataFrame(X_train)
+
+        df[self.target_y] = pd.Series(y_train).values
 
         # Get class counts
-        counts = df["label"].value_counts()
+        counts = df[self.target_y].value_counts()
         logging.info(f"Label counts before balancing: \n{counts}")
 
         min_size = counts.min()
@@ -38,30 +42,30 @@ class BalanceLabelsStep(Step):
 
         if self.method == "undersample":
             dfs = [
-                resample(df[df["label"] == label],
+                resample(df[df[self.target_y] == label],
                          replace=False,
                          n_samples=min_size,
                          random_state=42)
-                for label in df["label"].unique()
+                for label in df[self.target_y].unique()
             ]
         else:
             dfs = [
-                resample(df[df["label"] == label],
+                resample(df[df[self.target_y] == label],
                          replace=True,
                          n_samples=max_size,
                          random_state=42)
-                for label in df["label"].unique()
+                for label in df[self.target_y].unique()
             ]
 
 
-        balanced_df = pd.concat(dfs)
+        balanced_df = pd.concat(dfs, ignore_index=True)
 
         # Shuffle the result...
         balanced_df = balanced_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
         # Split back into X and y
-        X_resampled = balanced_df.drop(columns=["label"])
-        y_resampled = balanced_df["label"]
+        X_resampled = balanced_df.drop(columns=[self.target_y])
+        y_resampled = balanced_df[self.target_y]
 
         logging.info(f"Label balancing complete using {self.method} method.")
         counts = y_resampled.value_counts()

@@ -35,11 +35,12 @@ svc_param_grid = {
     'kernel': ['poly']#['rbf', 'poly']
 }
 rf_classifier_param_grid = {
-    "n_estimators": [300, 400],
+    "n_estimators": [300, 400, 600],
     "max_depth": [None, 25],
-    "min_samples_split": [5],
-    "min_samples_leaf": [1, 5]
+    "min_samples_split": [2, 5, 10],
+    "min_samples_leaf": [1, 5, 10]
 }
+rf_classifier_best_3k = {'max_depth': [None], 'min_samples_leaf': [1], 'min_samples_split': [10], 'n_estimators': [400]}
 rf_classifier_best_20k = {'max_depth': [25], 'min_samples_leaf': [1], 'min_samples_split': [5], 'n_estimators': [400]}
 knn_param_grid = {
             "n_neighbors": [3],
@@ -91,13 +92,13 @@ project_stages = [
         #GaussNaiveBayesClassificationStep(grid_search=True),
         #MultinomialNaiveBayesClassificationStep(grid_search=True),
         #KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
-        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_20k),
+        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_3k),
         #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
     ],  on_complete=stage_finished_pickler_callback),
     Stage("evaluation", [
         # Here, we use our testing set to predict a set of labels for data that only we know the true value of.
-        ClassificationEvaluationStep(metrics=["f1", "accuracy"]),
+        ClassificationEvaluationStep(metrics=["f1", "accuracy", "precision", "recall"]),
         OutputPredictionsStep(save_to_file=True, filename="predictions.json")
     ])
 ]

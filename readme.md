@@ -55,39 +55,41 @@ These labels are not the same as the ratings (e.g. 1-star or 5-star) given in th
 #### Label Distribution
 The balance of labels in the dataset is not distributed equally. To make them such, oversampling or undersampling is performed. The evaluations below all had their model use oversampling to achieve distributive balance.
 
-2025-04-27 15:33:52,370 [INFO] Label counts before balancing: 
+2025-04-30 12:15:57,130 [INFO] Label counts before balancing: 
 label
-5    1237
-2     787
-1     688
-3     668
-4     346
+5    989
+2    630
+1    550
+3    534
+4    277
 Name: count, dtype: int64
-2025-04-27 15:33:52,382 [INFO] Label balancing complete using oversample method.
-2025-04-27 15:33:52,383 [INFO] Label counts after balancing: 
-label
-4    1237
-2    1237
-1    1237
-5    1237
-3    1237
 
-2025-04-27 16:10:08,570 [INFO] Label counts before balancing: 
+2025-04-30 12:15:56,817 [INFO] Train/test split complete. Train size: 2980, Test size: 746
+2025-04-30 12:15:57,169 [INFO] Label counts after balancing: 
 label
-5    7487
-3    3924
-2    3029
-1    2784
-4    1982
+5    989
+2    989
+3    989
+1    989
+4    989
+
+2025-04-29 23:00:23,656 [INFO] Train/test split complete. Train size: 15364, Test size: 3842
+2025-04-29 23:00:26,132 [INFO] Label counts before balancing: 
+label
+5    5989
+3    3139
+2    2423
+1    2227
+4    1586
 Name: count, dtype: int64
-2025-04-27 16:10:08,673 [INFO] Label balancing complete using oversample method.
-2025-04-27 16:10:08,675 [INFO] Label counts after balancing: 
+2025-04-29 23:00:26,309 [INFO] Label balancing complete using oversample method.
+2025-04-29 23:00:26,312 [INFO] Label counts after balancing: 
 label
-4    7487
-1    7487
-5    7487
-3    7487
-2    7487
+2    5989
+5    5989
+4    5989
+3    5989
+1    5989
 Name: count, dtype: int64
 
 
@@ -108,10 +110,16 @@ They can be plugged into or unplugged from the pipeline and evaluated on using t
 ## Results (Data)
 
 
+## 2.98K Dataset (V2) - Test Size 746
 
 
+## 15.3k Dataset (V3)
 
-
+2025-04-29 23:11:48,342 [INFO] Best parameters from grid search: {'max_depth': 25, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}
+2025-04-29 23:11:48,342 [INFO] Training complete for random_forest_classification.
+2025-04-29 23:11:48,823 [INFO] Evaluating classification model...
+2025-04-29 23:11:49,942 [INFO] Accuracy: 0.5273
+2025-04-29 23:11:49,959 [INFO] F1 Score (macro): 0.4055
 
 
 
