@@ -53,7 +53,8 @@ Data is labelled on a scale of 1-5, similar to the star score used in the actual
 These labels are not the same as the ratings (e.g. 1-star or 5-star) given in the dataset, and these ratings are not factored into the model.
 
 #### Label Distribution
-The balance of labels in the dataset is not distributed equally. To make them such, oversampling or undersampling is performed. The evaluations below all had their model use oversampling to achieve distributive balance.
+The balance of labels in the dataset is not distributed equally. l use oversampling to achieve distributive balance. 
+This happens after the dataset is split into train/test group(s) and is only performed on the training set.
 
 2025-04-27 15:33:52,370 [INFO] Label counts before balancing: 
 label

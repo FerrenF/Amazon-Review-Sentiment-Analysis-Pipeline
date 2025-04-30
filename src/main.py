@@ -34,6 +34,7 @@ rf_classifier_param_grid = {
     "min_samples_split": [5],
     "min_samples_leaf": [1, 5]
 }
+rf_classifier_best_20k = {'max_depth': [25], 'min_samples_leaf': [1], 'min_samples_split': [5], 'n_estimators': [400]}
 knn_param_grid = {
             "n_neighbors": [3],
             "weights": ["distance"],
@@ -70,22 +71,21 @@ project_stages = [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
-        TfidfVectorizationStep(),
+        #TfidfVectorizationStep(),
         #BagOfWordsVectorizationStep(),
-        #SpacyVectorizationStep(model="en_core_web_md"),
-        ScaleVectorsStep(),
-        #NormalizeVectorsStep(),
-        BalanceLabelsStep(sample_method="oversample"),
+        SpacyVectorizationStep(model="en_core_web_md"),
+        #ScaleVectorsStep(),
+        NormalizeVectorsStep(),
 
     ],  on_complete=stage_finished_pickler_callback),
     Stage("training", [
-        # Here we finally split and then feed the cleaned and processed data into a model. The weights of the model are decided and
-        # then returned and saved.
+        # Here we finally split, balance, and then feed the cleaned and processed data into a model. The weights of the model are generated and sved.
         TrainTestSplitStep(test_size=0.2, random_state=42),
+        BalanceLabelsStep(sample_method="oversample", targets=("X_train", "y_train")),
         #GaussNaiveBayesClassificationStep(grid_search=True),
         #MultinomialNaiveBayesClassificationStep(grid_search=True),
-        KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
-        #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_param_grid),
+        #KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
+        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_20k),
         #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
     ],  on_complete=stage_finished_pickler_callback),
