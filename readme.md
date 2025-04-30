@@ -242,7 +242,30 @@ Best parameters from grid search:{'metric': 'manhattan', 'n_neighbors': 2, 'weig
 Training complete for k_nearest_neighbors_classification.  
 Evaluating classification model...  
 Accuracy: 0.8383    
-F1 Score (macro): 0.8372    
+F1 Score (macro): 0.8372   
+
+
+Classification (Logistic Regression)  
+Vectorizer: BagOfWords     
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...  
+Accuracy: 0.8925
+F1 Score (macro): 0.8918
+
+Classification (Logistic Regression)  
+Vectorizer: TF-IDF     
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...  
+Accuracy: 0.8901
+F1 Score (macro): 0.8899
 
 
 

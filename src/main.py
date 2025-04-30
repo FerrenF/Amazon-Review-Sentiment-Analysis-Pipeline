@@ -17,6 +17,12 @@ def stage_finished_pickler_callback(stage: Stage, _data: dict):
 
 
 # Parameter grids for automated hyperparameter tuning.
+logistic_param_grid = {
+    'penalty': ['l2'],
+        'C': [0.01, 0.1, 1, 10],
+        'solver': ['liblinear', 'lbfgs', 'sag', 'saga', 'newton-cg'],
+        'max_iter': [100, 200, 300]
+}
 svr_param_grid = {
     'C': [100, 200], #[0.1, 1, 10, 100],
     'epsilon': [0.01, 0.1, 0.2],

@@ -14,6 +14,7 @@ from .spellcheck_step import SpellCheckStep
 from .symbol_separation import SymbolSeparationStep
 from .train_test_split import TrainTestSplitStep
 from .unflatten_vector_columns import UnflattenVectorColumnsStep
+from .train_logistic_regression import LogisticRegressionStep
 from .train_linear_regression import LinearRegressionStep
 from .train_support_vector_regression import SupportVectorRegressionStep
 from .train_support_vector_classification import SupportVectorClassificationStep
@@ -49,5 +50,5 @@ __all__ = [
     "LinearRegressionStep", "RandomForestClassificationStep", "GaussNaiveBayesClassificationStep", "MultinomialNaiveBayesClassificationStep",
     "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
     "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep", 'KNearestNeighborsClassificationStep',
-    "RandomForestRegressionStep", "SupportVectorRegressionStep", "SupportVectorClassificationStep"
+    "RandomForestRegressionStep", "SupportVectorRegressionStep", "SupportVectorClassificationStep", "LogisticRegressionStep"
 ]
