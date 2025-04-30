@@ -54,7 +54,7 @@ project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-        LoadCheckpointIfExists("processing", "data", is_pickle=True),
+        #LoadCheckpointIfExists("cleaning", "data", is_pickle=False),
         CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
@@ -65,10 +65,18 @@ project_stages = [
         RemoveHTMLTagsStep(),
         SymbolSeparationStep(),
         ApplyWordThresholdStep(min_length = 3, max_length = 200),
-        CleanPunctuationStep(keep_punctuation=".,!?\"'-", normalize_unicode=True),
+        ExpandContractionsStep(),
+
+        # Better for spaCy tokenization
+        #CleanPunctuationStep(keep_punctuation=".,!?\"'-", normalize_unicode=True),
+
+        # Better for BOW and TF-IDF
+        CleanPunctuationStep(keep_punctuation="!?", normalize_unicode=True),
+
         NormalizePunctuationStep(),
         HyphenChainNormalizerStep(),
         WhitespaceTrimmingStep(),
+        RemoveAmznNoiseTokensStep(),
         SpellCheckStep(),
         SpaceAndBalanceQuotesStep(),
         TokenMergeCorrectionStep(),
@@ -78,11 +86,11 @@ project_stages = [
         # When processing our cleaned data, it is time to remove stopwords if needed, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
         SpacyTokenizationStep(model="en_core_web_sm", disable=["parser", "ner"]),
-        #TfidfVectorizationStep(),
+        TfidfVectorizationStep(),
         #BagOfWordsVectorizationStep(),
-        SpacyVectorizationStep(model="en_core_web_md"),
-        #ScaleVectorsStep(),
-        NormalizeVectorsStep(),
+        #SpacyVectorizationStep(model="en_core_web_md"),
+        ScaleVectorsStep(),
+        #NormalizeVectorsStep(),
 
     ],  on_complete=stage_finished_pickler_callback),
     Stage("training", [
@@ -90,9 +98,9 @@ project_stages = [
         TrainTestSplitStep(test_size=0.2, random_state=42),
         BalanceLabelsStep(sample_method="oversample", targets=("X_train", "y_train")),
         #GaussNaiveBayesClassificationStep(grid_search=True),
-        #MultinomialNaiveBayesClassificationStep(grid_search=True),
+        MultinomialNaiveBayesClassificationStep(grid_search=True),
         #KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
-        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_3k),
+        #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_3k),
         #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
     ],  on_complete=stage_finished_pickler_callback),

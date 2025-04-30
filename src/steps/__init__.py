@@ -38,9 +38,11 @@ from .scale_vectors import ScaleVectorsStep
 from .bow_vectorization import BagOfWordsVectorizationStep
 from .tfidf_vectorization import TfidfVectorizationStep
 from .train_k_nearest_neighbors import KNearestNeighborsClassificationStep
+from .remove_amzn_noise import RemoveAmznNoiseTokensStep
+from .expand_contractions import ExpandContractionsStep
 
 __all__ = [
-    "ArtifactRemovalStep",
+    "ArtifactRemovalStep", "RemoveAmznNoiseTokensStep", "ExpandContractionsStep",
     "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
     "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep", "TfidfVectorizationStep",
