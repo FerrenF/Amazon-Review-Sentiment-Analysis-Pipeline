@@ -33,9 +33,12 @@ class CleanPunctuationStep(Step):
 
             # Escape punctuation to keep
             escaped_keep = re.escape(self.keep_punctuation)
+            
+            #Remove apostrophe first without adding space
+            text = text.replace("'", "")
 
-            # Remove all other punctuation except keep list
-            text = re.sub(rf"[^\w\s{escaped_keep}]", "", text)
+            # Remove all other punctuation except keep list and add a space so that words arent merged
+            text = re.sub(rf"[^\w\s{escaped_keep}]", " ", text)
 
             # Collapse multiple spaces
             text = re.sub(r"\s+", " ", text).strip()
