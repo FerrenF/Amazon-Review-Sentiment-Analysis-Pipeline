@@ -17,7 +17,7 @@ Included in the root of the project is an anaconda environment .yml file.
 This was exported using the command `conda env export > environment.yml`.
 
 You can *import* this environment by creating a new conda environment while specifying it
-as the source `conda env -f encironment.yml` and then activating it.
+as the source `conda env -f environment.yml` and then activating it.
 
 #### Pip
 For requirements that aren't included in the anaconda environment, you can install the rest of the
