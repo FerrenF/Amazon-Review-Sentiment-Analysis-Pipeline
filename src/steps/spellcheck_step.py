@@ -10,24 +10,26 @@ class SpellCheckStep(Step):
         """
         Corrects spelling in 'title' and 'text' fields using pyspellchecker.
         Preserves punctuation, contractions, and compound words with hyphens.
+
+        TODO: Make a argument to adjust distance for spell checking.
         """
         if "dataset" not in data:
             raise ValueError("No dataset found in data. Ensure LoadDatasetStep ran successfully.")
 
         df = data["dataset"]
-        spell = SpellChecker(distance=1)
+        spell = SpellChecker(distance=2)
 
         def correct_sentence(sentence: str) -> str:
             if not isinstance(sentence, str):
                 return sentence
 
-            # Tokenize with support for apostrophes and hyphens within words
+            # Pre-tokenize with support for apostrophes and hyphens within words
             tokens = re.findall(r"\w+(?:[-']\w+)*|[^\w\s]", sentence, re.UNICODE)
 
             corrected = []
             for i, token in enumerate(tokens):
                 if re.fullmatch(r"\w+(?:[-']\w+)*", token):
-                    # Preserve proper nouns (capitalized, not at start)
+                    # Preserve proper nouns (capitalized, not at start of sentence)
                     if token[0].isupper() and i > 0:
                         corrected.append(token)
                     else:
@@ -35,7 +37,7 @@ class SpellCheckStep(Step):
                 else:
                     corrected.append(token)
 
-            # Reconstruct sentence with correct spacing
+            # Reconstruct sentence with correct spacing, hopefully...
             text = ""
             for i, token in enumerate(corrected):
                 if i > 0:

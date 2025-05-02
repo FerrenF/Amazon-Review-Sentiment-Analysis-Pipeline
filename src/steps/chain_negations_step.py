@@ -2,13 +2,13 @@ import spacy
 import logging
 from core.step import Step
 
-class ChainNegationsStep(Step):
-    name = "chain_negations"
+class ChainWordQualifiersStep(Step):
+    name = "chain_qualifiers"
 
     def __init__(self, model="en_core_web_sm", max_chain_length=2, targets=["text"], disable=["parser", "ner"]):
         self.nlp = spacy.load(model, disable=disable)
         self.max_chain_length = max_chain_length
-        self.negation_terms = {"not", "no", "never", "n't"}
+        self.negation_terms = {"not", "no", "never", "n't", "very", "super"}
         self.targets = targets
 
     def run(self, data: dict) -> dict:

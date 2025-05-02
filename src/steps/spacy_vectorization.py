@@ -55,6 +55,5 @@ class SpacyVectorizationStep(Step):
             vectors.append(doc.vector if doc.has_vector else np.zeros(self.vector_size, dtype=self.numeric_type))
 
         df["vector"] = vectors
-        data["dataset"] = df
         logging.info("Spacy vectorization complete.")
         return data
