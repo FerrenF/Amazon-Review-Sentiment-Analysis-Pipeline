@@ -6,18 +6,19 @@ from core.step import Step
 class SpellCheckStep(Step):
     name = "spellcheck_step"
 
+    def __init__(self, max_distance = 2):
+        self.max_distance = max_distance
+
     def run(self, data: dict) -> dict:
         """
         Corrects spelling in 'title' and 'text' fields using pyspellchecker.
         Preserves punctuation, contractions, and compound words with hyphens.
-
-        TODO: Make a argument to adjust distance for spell checking.
         """
         if "dataset" not in data:
             raise ValueError("No dataset found in data. Ensure LoadDatasetStep ran successfully.")
 
         df = data["dataset"]
-        spell = SpellChecker(distance=2)
+        spell = SpellChecker(distance=self.max_distance)
 
         def correct_sentence(sentence: str) -> str:
             if not isinstance(sentence, str):

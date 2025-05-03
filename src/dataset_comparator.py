@@ -7,7 +7,7 @@ from pathlib import Path
 # Most of the labels will differ. If that difference is small, then take the higher or lower agreement, or a mean between the two.
 config = {
     "tolerance": 1,              # Max distance between labels for soft agreement
-    "prefer": "higher",          # Options: "higher", "lower", or "mean"
+    "prefer": "extreme",          # Options: "higher", "lower", or "mean"
     "apply_soft_agreement": True
 }
 
@@ -32,7 +32,17 @@ def resolve_soft_agreement(labels, config):
                 return min(a, b)
             elif config["prefer"] == "mean":
                 return round((a + b) / 2)
+            elif config["prefer"] == "extreme":
+                mean_label = (a + b) / 2
+                if mean_label > 3:
+                    return max(a, b)
+                elif mean_label < 3:
+                    return min(a, b)
+                else:
+                    # If mean == 3 exactly, decide arbitrarily or default to mean
+                    return round(mean_label)
     return None
+
 
 def compare_labels_in_directory(directory):
     directory = Path(directory)
@@ -81,4 +91,4 @@ def compare_labels_in_directory(directory):
 
 # Example usage
 if __name__ == "__main__":
-    compare_labels_in_directory("./dataset_v3_labelled")
+    compare_labels_in_directory("./dataset_v2_labelled")

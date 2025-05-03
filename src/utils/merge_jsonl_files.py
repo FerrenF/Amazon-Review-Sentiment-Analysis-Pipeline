@@ -2,13 +2,12 @@ import os
 import json
 
 
-def merge_jsonl_files(input_dir):
+def merge_jsonl_files(input_dir, output_dir):
     # Ensure input is a directory
     if not os.path.isdir(input_dir):
         raise ValueError(f"{input_dir} is not a valid directory.")
 
-    parent_dir = os.path.abspath(os.path.join(input_dir, os.pardir))
-    merged_file_path = os.path.join(parent_dir, "merged_output.jsonl")
+    merged_file_path = os.path.join(output_dir, "merged_output.jsonl")
 
     with open(merged_file_path, 'w', encoding='utf-8') as outfile:
         for filename in os.listdir(input_dir):

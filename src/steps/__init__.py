@@ -26,7 +26,7 @@ from .regression_evaluation_step  import RegressionEvaluationStep
 from .output_predictions import OutputPredictionsStep
 from .normalize_vectors import NormalizeVectorsStep
 from .word_threshold import ApplyWordThresholdStep
-from .normalize_punctuation import NormalizePunctuationStep
+from .normalize_punctuation import NormalizeOverpunctuationStep
 from .token_merge_correction import TokenMergeCorrectionStep
 from .normalize_spacing import NormalizeSpacingStep
 from .hyphen_chain_normalizer import HyphenChainNormalizerStep
@@ -40,14 +40,15 @@ from .tfidf_vectorization import TfidfVectorizationStep
 from .train_k_nearest_neighbors import KNearestNeighborsClassificationStep
 from .remove_amzn_noise import RemoveAmznNoiseTokensStep
 from .expand_contractions import ExpandContractionsStep
-from .chain_negations_step import ChainWordQualifiersStep
+from .chain_qualifiers_step import ChainWordQualifiersStep
 from .remove_stopwords import RemoveStopWordsStep
 from .filter_non_english import FilterNonEnglishStep
+from .remap_labels import RemapLabelsStep
 
 __all__ = [
     "ArtifactRemovalStep", "RemoveAmznNoiseTokensStep", "ExpandContractionsStep", "ChainWordQualifiersStep",
-    "RemoveStopWordsStep", "FilterNonEnglishStep",
-    "CleanDatasetStep", "CleanPunctuationStep", "NormalizePunctuationStep","CombineTextColumnsStep",
+    "RemoveStopWordsStep", "FilterNonEnglishStep", "RemapLabelsStep",
+    "CleanDatasetStep", "CleanPunctuationStep", "NormalizeOverpunctuationStep", "CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
     "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep", "TfidfVectorizationStep",
     "SpacyTokenizationStep", "SpacyVectorizationStep", "BagOfWordsVectorizationStep", "SpellCheckStep",

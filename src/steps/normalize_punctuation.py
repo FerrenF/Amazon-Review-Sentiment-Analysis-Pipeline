@@ -2,7 +2,7 @@ import re
 from core.step import Step
 import logging
 
-class NormalizePunctuationStep(Step):
+class NormalizeOverpunctuationStep(Step):
     name = "overpunctuation_normalizer"
 
     def run(self, data: dict) -> dict:
