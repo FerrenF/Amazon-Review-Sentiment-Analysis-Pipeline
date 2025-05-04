@@ -110,7 +110,220 @@ They can be plugged into or unplugged from the pipeline and evaluated on using t
 ## Results (Data)
 
 
-## 2.98K Dataset (V2) - Test Size 746
+## 13965 Dataset (V2)
+
+------------------------------------------------------------------
+Classification (Logistic Regression)  
+Vectorizer: TF-IDF     
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...
+Accuracy: 0.7219
+Precision (macro): 0.5445
+Recall (macro): 0.5445
+F1 Score (macro): 0.5439
+
+Classification (Logistic Regression)  
+Vectorizer: TF-IDF with n gram 1-2 range     
+Normalization/Scaler: L2 Normalizer 
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...
+Accuracy: 0.7269
+Recall (macro): 0.5824
+F1 Score (macro): 0.5762
+
+Classification (Logistic Regression)  
+Vectorizer: BOW     
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...
+Accuracy: 0.7520
+Precision (macro): 0.5960
+Recall (macro): 0.5999
+F1 Score (macro): 0.5976
+
+Classification (Logistic Regression)  
+Vectorizer: BOW     
+Normalization/Scaler: L2 Normalizer  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...
+Accuracy: 0.7232
+Precision (macro): 0.5459
+Recall (macro): 0.5448
+F1 Score (macro): 0.5446
+
+Classification (Logistic Regression)  
+Vectorizer: spaCy     
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...
+Accuracy: 0.5863
+Precision (macro): 0.5026
+Recall (macro): 0.5196
+F1 Score (macro): 0.4872
+
+Classification (Logistic Regression)  
+Vectorizer: spaCy     
+Normalization/Scaler: L2 Normalizer  
+Balancing: Oversample  
+Best parameters from grid search: {'C': 10, 'max_iter': 100, 'penalty': 'l2', 'solver': 'saga'}  
+Training complete for 
+logistic_regression.
+Evaluating classification model...
+Accuracy: 0.7244
+Precision (macro): 0.5469
+Recall (macro): 0.5459
+F1 Score (macro): 0.5457
+------------------------------------------------------------------
+Classification (Gaussian Naive Bayes)  
+Vectorizer: TF-IDF 
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-08}  
+Training complete for 
+gauss_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.4375
+Precision (macro): 0.4066
+Recall (macro): 0.4000
+F1 Score (macro): 0.3707 
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: TF-IDF 
+Normalization/Scaler: L2 Normalizer  
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-08}  
+Training complete for 
+gauss_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.4294
+Precision (macro): 0.3916
+Recall (macro): 0.3800
+F1 Score (macro): 0.3588
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: spaCy 
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-08}  
+Training complete for 
+gauss_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.3622
+Precision (macro): 0.4129
+Recall (macro): 0.4109
+F1 Score (macro): 0.3333
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: spaCy 
+Normalization/Scaler: L2 Normalizer   
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-08}  
+Training complete for 
+gauss_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.3622
+Precision (macro): 0.4129
+Recall (macro): 0.4109
+F1 Score (macro): 0.3333
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: BOW 
+Normalization/Scaler: MinMax Scaling 
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-08}  
+Training complete for 
+gauss_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.4200
+Precision (macro): 0.3958
+Recall (macro): 0.3839
+F1 Score (macro): 0.3561
+
+Classification (Gaussian Naive Bayes)  
+Vectorizer: BOW 
+Normalization/Scaler: L2 Normalizer  
+Balancing: Oversample  
+Best Parameters: {'var_smoothing': 1e-08}  
+Training complete for 
+gauss_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.4407
+Precision (macro): 0.4124
+Recall (macro): 0.3999
+F1 Score (macro): 0.3732
+------------------------------------------------------------------
+Classification (Multinomial Naive Bayes)  
+Vectorizer: TF-IDF    
+Normalization/Scaler: MinMax Scaling  
+Balancing: Oversample  
+Best Parameters: {'alpha': 0.1}  
+Training complete for 
+multinomial_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.6591
+Precision (macro): 0.5129
+Recall (macro): 0.5234
+F1 Score (macro): 0.5147
+
+Classification (Multinomial Naive Bayes)  
+Vectorizer: TF-IDF    
+Normalization/Scaler: L2 Normalizer 
+Balancing: Oversample  
+Best Parameters: {'alpha': 0.1}  
+Training complete for 
+multinomial_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.6924
+Precision (macro): 0.5493
+Recall (macro): 0.5678
+F1 Score (macro): 0.5531
+
+Classification (Multinomial Naive Bayes)  
+Vectorizer: BOW    
+Normalization/Scaler: MinMax Scaling 
+Balancing: Oversample  
+Best Parameters: {'alpha': 0.1}  
+Training complete for 
+multinomial_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.6723
+Precision (macro): 0.5244
+Recall (macro): 0.5350
+F1 Score (macro): 0.5268
+
+Classification (Multinomial Naive Bayes)  
+Vectorizer: BOW    
+Normalization/Scaler: L2 Normalizer 
+Balancing: Oversample  
+Best Parameters: {'alpha': 0.1}  
+Training complete for 
+multinomial_naive_bayes_classification.
+Evaluating classification model...
+Accuracy: 0.7068
+Precision (macro): 0.5668
+Recall (macro): 0.5886
+F1 Score (macro): 0.5709
+
+------------------------------------------------------------------
+
+
+
 
 
 ## 15.3k Dataset (V3)
