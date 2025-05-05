@@ -27,7 +27,7 @@ class LoadCheckpointIfExists(Step):
                 f"Checkpoint for stage '{self.stage_name}' found at {checkpoint_path}, loading instead of rerunning stages up to checkpoint.")
             try:
                 if self.is_pickle:
-                    load_dataset_from_pickle(stage=Stage(self.stage_name, []),
+                    data = load_dataset_from_pickle(stage=Stage(self.stage_name, []),
                                                     output_prefix=self.prefix, data=data)
                 else:
                     load_dataset_from_parquet(stage=Stage(self.stage_name, []), output_prefix=self.prefix,

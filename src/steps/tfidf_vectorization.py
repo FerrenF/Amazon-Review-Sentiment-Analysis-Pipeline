@@ -41,9 +41,9 @@ class TfidfVectorizationStep(Step):
         logging.info("Vectorizing text using TF-IDF...")
         X_tfidf = self.vectorizer.fit_transform(texts)
         feature_names = self.vectorizer.get_feature_names_out()
-        dense_vectors = X_tfidf.toarray()
+        #dense_vectors = X_tfidf.toarray()
 
-        df["vector"] = list(dense_vectors) # the dense vector is used for training
+        #df["vector"] = list(dense_vectors) # the dense vector is used for training
         data["X_tfidf"] = X_tfidf  # keep the sparse version too just in case
         data["vector_features"] = feature_names
         data["vectorizer"] = self.vectorizer

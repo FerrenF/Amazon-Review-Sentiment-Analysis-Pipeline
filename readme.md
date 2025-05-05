@@ -85,7 +85,7 @@ They can be plugged into or unplugged from the pipeline and evaluated on using t
 ## Results (Data)
 
 
-## Dataset (V2)
+## Dataset (V2) 8k
 Classification (Logistic Regression)  
 Vectorizer: TF-IDF     
 Normalization/Scaler: MinMax Scaling  

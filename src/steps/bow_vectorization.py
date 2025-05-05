@@ -41,10 +41,10 @@ class BagOfWordsVectorizationStep(Step):
         logging.info("Vectorizing text using Bag-of-Words...")
         X_bow = self.vectorizer.fit_transform(texts)
         feature_names = self.vectorizer.get_feature_names_out()
-        dense_vectors = X_bow.toarray()
 
+        #dense_vectors = X_bow.toarray()
+        #df["vector"] = list(dense_vectors) Too much memory usage for dense vectors
 
-        df["vector"] = list(dense_vectors)
         data["X_bow"] = X_bow  # keep the sparse version in case it's needed
         data["vector_features"] = feature_names
         data["vectorizer"] = self.vectorizer

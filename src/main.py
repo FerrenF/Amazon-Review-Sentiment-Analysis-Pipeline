@@ -13,7 +13,9 @@ def stage_finished_callback(stage: Stage, _data: dict):
         logging.warning(f"Failed to save checkpoint for stage '{stage.name}'")
 
 def stage_finished_pickler_callback(stage: Stage, _data: dict):
-   pickle_dataset(stage, "data", _data)
+
+    logging.info("Saving keys: " + ",".join(_data.keys()))
+    pickle_dataset(stage, "data", _data)
 
 
 # Parameter grids for automated hyperparameter tuning.
@@ -24,24 +26,28 @@ logistic_param_grid = {
         'max_iter': [100, 200, 300]
 }
 svr_param_grid = {
-    'C': [100, 200], #[0.1, 1, 10, 100],
-    'epsilon': [0.01, 0.1, 0.2],
+    'C': [200], #[0.1, 1, 10, 100],
+    'epsilon': [0.01, 0.1],
     'gamma': ['scale'],#, 'auto', 0.01, 0.1],
-    'kernel': ['poly']#['rbf', 'poly']
+    'kernel': ['poly','rbf']
 }
 svc_param_grid = {
-    'C': [200, 1],#, 10, 100],
+    'C': [200],
     'gamma': ['scale'],#, 'auto', 0.01, 0.1],
-    'kernel': ['poly']#,'rbf']#, 'poly']
+    'kernel': ['poly','rbf']#, 'poly']
 }
 rf_classifier_param_grid = {
-    "n_estimators": [300, 400, 600],
+    "n_estimators": [300, 400],
     "max_depth": [None, 25],
     "min_samples_split": [2, 5, 10],
     "min_samples_leaf": [1, 5, 10],
-    "max_features": ["auto", "sqrt", "log2"]
+    "max_features": ["sqrt"]
 }
-rf_classifier_best_3k = {'max_depth': [None], 'min_samples_leaf': [1], 'min_samples_split': [5], 'n_estimators': [400]}
+rf_classifier_best_3k = {'max_depth': [None],
+                         'min_samples_leaf': [1],
+                         'min_samples_split': [5],
+                         'n_estimators': [400]
+                         }
 rf_classifier_best_20k = {'max_depth': [25], 'min_samples_leaf': [1], 'min_samples_split': [5], 'n_estimators': [400]}
 knn_param_grid = {
             "n_neighbors": [2, 3, 5],
@@ -96,20 +102,26 @@ project_stages = [
         TfidfVectorizationStep(),
         #BagOfWordsVectorizationStep(),
         #SpacyVectorizationStep(model="en_core_web_md"),
-        ScaleVectorsStep(),
+        ScaleVectorsStep(target_column="X_tfidf", output_column="X_tfidf"),
         #NormalizeVectorsStep(),
 
     ],  on_complete=stage_finished_pickler_callback),
     Stage("training", [
         # Here we finally split, balance, and then feed the cleaned and processed data into a model. The weights of the model are generated and sved.
         RemapLabelsStep(mapping={2: 1, 4: 5}),
-        TrainTestSplitStep(test_size=0.2, random_state=42),
-        BalanceLabelsStep(sample_method="oversample", targets=("X_train", "y_train")),
+
+        # For TF-IDF
+        TrainTestSplitStep(test_size=0.2, random_state=42, target_x="X_tfidf", target_y=("dataset","label"), text_key=("dataset","text")),
+
+        # For BOW
+        #TrainTestSplitStep(test_size=0.2, random_state=42, target_x="X_Bow", target_y=("dataset","label"), text_key=("dataset","text")),
+
+        BalanceLabelsStep(sample_method="oversample", targets=("X_train", "y_train"), oversample_cap=2500),
         #GaussNaiveBayesClassificationStep(grid_search=True),
-        #MultinomialNaiveBayesClassificationStep(grid_search=True),
+        MultinomialNaiveBayesClassificationStep(grid_search=True),
         #KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
         #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_3k),
-        SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
+        #SupportVectorClassificationStep(grid_search=True, param_grid=svc_param_grid),
 
     ],  on_complete=stage_finished_pickler_callback),
     Stage("evaluation", [

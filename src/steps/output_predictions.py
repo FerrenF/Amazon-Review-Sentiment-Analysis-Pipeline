@@ -42,9 +42,6 @@ class OutputPredictionsStep(Step):
         if "model" not in data or "X_test" not in data or "y_test" not in data:
             raise ValueError("Missing model, X_test, or y_test in data.")
 
-        if "dataset" not in data or "text" not in data["dataset"]:
-            raise ValueError("Missing dataset text in data['dataset']['text'].")
-
         model = data["model"]
         X_test = data["X_test"]
         y_test = data["y_test"]
@@ -56,10 +53,10 @@ class OutputPredictionsStep(Step):
             self.clipping(y_pred)
 
         predictions = []
-        for i in range(len(X_test)):
+        for i in range(y_test.shape[0] if "shape" in y_test else len(y_test)):
             predictions.append({
-                "text": text_test[i],
-                "true_label": y_test[i],
+                "text": text_test.iloc[i],
+                "true_label": y_test.iloc[i],
                 "predicted_label": y_pred[i]
             })
 

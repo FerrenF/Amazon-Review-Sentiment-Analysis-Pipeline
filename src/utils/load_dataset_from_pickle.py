@@ -16,6 +16,7 @@ def load_dataset_from_pickle(stage: Stage, output_prefix: str, data: dict) -> di
 
     logging.info(f"Loading pickled dataset from {str(input_path)}")
     with open(input_path, "rb") as f:
-        df = pickle.load(f)
-        data["dataset"] = df
+        data = pickle.load(f)
+    logging.info("Loaded keys: " + ",".join(data.keys()))
     return data
+
