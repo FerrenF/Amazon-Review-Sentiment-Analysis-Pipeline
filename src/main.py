@@ -66,6 +66,7 @@ project_stages = [
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
     Stage("cleaning", [
+
         # During the cleaning stage, we try to make the data we are going to feed into the rest of the pipeline more
         # consistent. Here, we do such tasks as removing punctuation, filtering out data that has less than X words,
         # or performing stemming.
