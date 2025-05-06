@@ -15,7 +15,7 @@ class BagOfWordsVectorizationStep(Step):
         Initializes a BoW vectorization step using sklearn's CountVectorizer.
 
         :param max_features: Optional limit on the number of features.
-        :param stop_words: Stop words to filter (default: "english").
+        :param stop_words: Optional stop words to filter (default: "english").
         :param vectorizer_kwargs: Additional CountVectorizer keyword arguments.
         """
         self.vectorizer = CountVectorizer(

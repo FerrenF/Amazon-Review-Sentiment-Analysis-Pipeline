@@ -7,6 +7,13 @@ class BalanceLabelsStep(Step):
     name = "balance_labels_step"
 
     def __init__(self, sample_method: str = "undersample", targets="dataset", text_col = None, oversample_cap: int = None):
+        """
+           Initializes dataset balancing through understampling or oversampling. Optionally, cap oversampled methods at a certain number.
+
+           :param sample_method: The balancing type. "undersample" or "oversample".
+           :param targets: The target key of the passed in data which contains the data.
+           :param oversample_cap: Cap oversampled data points to reduce the chance of class dominance.
+           """
         self.method = sample_method
         self.oversample_cap = oversample_cap
         self.text_col = text_col

@@ -61,7 +61,7 @@ project_stages = [
     Stage("loading", [
         # During the loading stage, we import our unprocessed data and read it to be fed into the rest of the pipline.
         # Simple and easy.
-        LoadCheckpointIfExists("processing", "data", is_pickle=True),
+        #LoadCheckpointIfExists("processing", "data", is_pickle=True),
         CleanDatasetStep(),
         LoadDatasetStep()
     ],  on_complete=stage_finished_callback),
