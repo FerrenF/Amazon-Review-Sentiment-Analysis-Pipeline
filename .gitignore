@@ -23,3 +23,4 @@ src/data/processed/data_processing.pkl
 /src/dataset_v3_merged
 /src/dataset_v2_merged
 /src/books_data_low_review_10k
+output/predictions.json
