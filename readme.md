@@ -7,7 +7,7 @@ Libraries: Pandas, spaCy, spellchecker, pyarrow (Included with pandas), sweetviz
 
 ## About
 
-This was originally a semester project for a data science I (Hunter Williams of the posted group members) participated in. 
+This was originally a semester project for a Data Science group. I am Hunter Williams of the posted group members that participated in it.
 It takes text from amazon reviews and tries to predict the sentiment displayed in the review on a negative-positive scale.  
 
 I was mad that the model wasn't working better so I messed with it a ton even after the semester ended. This is version THREE of this.
