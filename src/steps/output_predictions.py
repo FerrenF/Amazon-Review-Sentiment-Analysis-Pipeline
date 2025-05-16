@@ -1,6 +1,7 @@
 import logging
 import json
 import pathlib
+from datetime import datetime
 
 import numpy as np
 
@@ -33,6 +34,9 @@ class OutputPredictionsStep(Step):
         self.filename = filename
         self.rounded_pred = rounded_predictions
         self.clipping = clipping_func
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         """
@@ -72,9 +76,9 @@ class OutputPredictionsStep(Step):
             output_path = self.output_dir / self.filename
             with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(predictions, f, cls=NumpyEncoder, ensure_ascii=False, indent=2)
-            logging.info(f"Saved {len(predictions)} predictions to {output_path}")
+            self.step_log(f"Saved {len(predictions)} predictions to {output_path}")
 
         else:
-            logging.info(f"Stored {len(predictions)} predictions in memory under '{self.output_key}'.")
+            self.step_log(f"Stored {len(predictions)} predictions in memory under '{self.output_key}'.")
 
         return data

@@ -24,12 +24,11 @@ from .train_ridge_regression import RidgeRegressionStep
 from .train_lasso_regression import LassoRegressionStep
 from .regression_evaluation_step  import RegressionEvaluationStep
 from .output_predictions import OutputPredictionsStep
-from .normalize_vectors import NormalizeVectorsStep
+from .normalize_vectors import VectorNormalizationStep
 from .word_threshold import ApplyWordThresholdStep
-from .normalize_punctuation import NormalizeOverpunctuationStep
+from .normalize_punctuation import NormalizeOverPunctuationStep
 from .token_merge_correction import TokenMergeCorrectionStep
 from .normalize_spacing import NormalizeSpacingStep
-from .hyphen_chain_normalizer import HyphenChainNormalizerStep
 from .space_and_balance_quotes import SpaceAndBalanceQuotesStep
 from .classification_evaluation_step import ClassificationEvaluationStep
 from .train_gauss_naive_bayes_classification import GaussNaiveBayesClassificationStep
@@ -44,18 +43,19 @@ from .chain_qualifiers_step import ChainWordQualifiersStep
 from .remove_stopwords import RemoveStopWordsStep
 from .filter_non_english import FilterNonEnglishStep
 from .remap_labels import RemapLabelsStep
-
+from .drop_labels import DropLabelsStep
+from .output_statistics import OutputStatisticsStep
 __all__ = [
-    "ArtifactRemovalStep", "RemoveAmznNoiseTokensStep", "ExpandContractionsStep", "ChainWordQualifiersStep",
-    "RemoveStopWordsStep", "FilterNonEnglishStep", "RemapLabelsStep",
-    "CleanDatasetStep", "CleanPunctuationStep", "NormalizeOverpunctuationStep", "CombineTextColumnsStep",
+    "OutputStatisticsStep", "ArtifactRemovalStep", "RemoveAmznNoiseTokensStep", "ExpandContractionsStep", "ChainWordQualifiersStep",
+    "RemoveStopWordsStep", "FilterNonEnglishStep", "RemapLabelsStep", "DropLabelsStep",
+    "CleanDatasetStep", "CleanPunctuationStep", "NormalizeOverPunctuationStep", "CombineTextColumnsStep",
     "BalanceLabelsStep", "RemoveHTMLTagsStep", "LoadCheckpointIfExists", "TokenMergeCorrectionStep",
     "LoadDatasetStep", "LowercasingStep", "NormalizeSpacingStep", "TfidfVectorizationStep",
     "SpacyTokenizationStep", "SpacyVectorizationStep", "BagOfWordsVectorizationStep", "SpellCheckStep",
     "SymbolSeparationStep", "TrainTestSplitStep", "UnflattenVectorColumnsStep",
-    "NormalizeVectorsStep","ScaleVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
+    "VectorNormalizationStep","ScaleVectorsStep", "WhitespaceTrimmingStep", "SpaceAndBalanceQuotesStep",
     "LinearRegressionStep", "RandomForestClassificationStep", "GaussNaiveBayesClassificationStep", "MultinomialNaiveBayesClassificationStep",
-    "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep", "HyphenChainNormalizerStep",
+    "RegressionEvaluationStep", "OutputPredictionsStep", "ClassificationEvaluationStep", "ApplyWordThresholdStep",
     "LinearRegressionStep", "RidgeRegressionStep", "LassoRegressionStep", 'KNearestNeighborsClassificationStep',
     "RandomForestRegressionStep", "SupportVectorRegressionStep", "SupportVectorClassificationStep", "LogisticRegressionStep"
 ]

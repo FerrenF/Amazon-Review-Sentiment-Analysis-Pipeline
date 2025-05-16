@@ -1,71 +1,96 @@
-## Data Science Capstone
+# Amazon Reviews Sentiment Analysis: Traditional Medicine
 
-Dataset: https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
-<br/>
-Tools: Anaconda, Jupyter
-<br/>
-Libraries: Pandas, spaCy, pyarrow (Included with pandas), sweetviz
+Version: 3.0.0  
+Dataset: https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023  
+Tools: Anaconda, Jupyter (Not for most of the project!)  
+Libraries: Pandas, spaCy, spellchecker, pyarrow (Included with pandas), sweetviz
 
+## About
+
+This was originally a semester project for a data science I (Hunter Williams of the posted group members) participated in. 
+It takes text from amazon reviews and tries to predict the sentiment displayed in the review on a negative-positive scale.  
+
+I was mad that the model wasn't working better so I messed with it a ton even after the semester ended. This is version THREE of this.
+What I *consider* to be version three. This project is now about learning, something I personally did a lot of.
+![img.png](img.png)
 
 ### Environment
-Anaconda is required for this project to function. Theoretically, you could install these packages with pip only,
-but it probably won't work right.
 
-#### Anaconda
-Included in the root of the project is an anaconda environment .yml file.
-This was exported using the command `conda env export > environment.yml`.
+Anaconda is required for this project to function.
+![img_1.png](img_1.png)
 
+Theoretically, you could install the necessary packages with pip only, but it probably won't work right the first time.
+Included at the root of this project is a ```requirements.txt``` exported by ```pip``` and an ```environments.yml``` which is for anaconda.
+
+
+#### Anaconda ```environments.yml```
+
+This was exported using the command `conda env export > environment.yml`.  
 You can *import* this environment by creating a new conda environment while specifying it
 as the source `conda env -f environment.yml` and then activating it.
 
 #### Pip
 For requirements that aren't included in the anaconda environment, you can install the rest of the
-necessary packages by using pip's `requirement.txt` file - also located in the root of this project.
+necessary packages by using ```requirements.txt``` located in the root of this project.  
+
 **Always install through anaconda first and THEN pip.**
 
 
 ## Dataset
 
-We are using the unlabelled dataset found here: https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023
-From this dataset, we pull 10,000 samples. 5000 of these samples are unfiltered, and because of the high ratio of good ratings to bad,
-5000 of these samples are filtered to be taken only from reviews whose score is '3 stars' or less.
-<br/>
-<br/>
-Originally, we hand-annotated. This took too much time, so we came up with a new method: multi-model pre-predictions.
-We have a pre-trained, much larger and more complex model (e.g. BERT) make classifications of the text beforehand. We
-reduce the likelihood of innaccurate predictions by taking the output betwen multiple models and compare them for 'agreements' on data points.
-(If both models think a particular text is rated 5 for very positve, then we keep it. If there is a minor disagreement, such as one model predicting 4 and the other 5, then we take the higher or 'stronger' score. Otherwise, the point is discarded.)
-<br/>
-<br/>
-Using this method, we increased the original 1000 data points to 4200 data points out of 10000 pulled. I repeat this process
-for dataset v3 with 21,000 data points out of 50000 used.
+We are using the unlabelled dataset found here: https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023  
+![img_2.png](img_2.png)  
 
-### Models Used to autoclassify:
+I use two source dataset sizes: 20,000 and 50,000, extracted from the above data and then broken up into two 10,000 and 25,000 data point groups.
+* 10,000 / 25,000 of these samples are unfiltered.  
+* 10,000 / 25,000 of these samples are taken from the dataset after filtering for **low subjective user review scores** (3-stars and under).  
+
+### Fails:
+
+Originally, we hand-annotated. This took too much time or it would have been way too costly on account of entertainment.
+The act didn't - you could blow through 250 samples each in 30 minutes. It was simply mind-numbingly boring. In addition, it turns out there is a lot of personal bias and boundaries on 'should i ask the group for a majority' or 'guess out my ass'.  
+Not good.    
+So, we improvised: The use of costlier, pre-proven models for the prelabelling of a dataset! Get this:   
+1. We have a pre-trained, much larger and more complex model (e.g. BERT) make classifications of the text beforehand.
+2. We increase the accuracy of these classifications by taking the output between multiple models and comparing them for 'agreements' on data points.
+(If both models think a particular text is rated 5 for very positve, then we keep it.
+3. If there is a minor disagreement, such as one model predicting 4 and the other 5, then we take the higher or 'stronger' score.
+4. Otherwise, the point is discarded.)  
+
+#### Models Used to auto-classify:
 - tabularisai/multilingual-sentiment-analysis
 - LiYuan/amazon-review-sentiment-analysis
 - DataMonke/bert-base-uncased-finetuned-review-sentiment-analysis
 
-  
-## Labels
 
-Data is labelled on a scale of 1-5, similar to the star score used in the actual reviews. A label of '1' would represent a very negative sentiment. Conversely, a label of '5' would represent a very positive sentiment.
-These labels are not the same as the ratings (e.g. 1-star or 5-star) given in the dataset, and these ratings are not factored into the model.
+
+
+## Labels
+The pre-labelled data we output from our group of classified has a label from 1 to 5, similar to the star score used in the actual reviews.
+* A label of '1' would represent a very negative sentiment.  
+* Conversely, a label of '5' would represent a very positive sentiment.  
+These labels are not the same as the ratings (e.g. 1-star or 5-star) given in the dataset, and these ratings are not factored into training.
 
 #### Label Distribution
 The balance of labels in the dataset is not distributed equally. To make them such, oversampling or undersampling is performed. The evaluations below all had their model use oversampling to achieve distributive balance.
 
-2025-05-04 03:50:51,916 [INFO] Label counts before balancing: 
-y_train
+##### When Oversampled:
+
 5    4012
 1    1842
 3     515
-Name: count, dtype: int64
-2025-05-04 03:50:55,141 [INFO] Label balancing complete using oversample method.
-2025-05-04 03:50:55,142 [INFO] Label counts after balancing: 
-y_train
+
+After:
+
 1    2500
 3    2500
 5    2500	
+
+##### When Undersampled:
+
+Counter({5: 3020, 3: 2496, 1: 853})
+Counter({1: 853, 3: 853, 5: 853})
+
 
 
 ## Methods
@@ -83,6 +108,50 @@ They can be plugged into or unplugged from the pipeline and evaluated on using t
 ![Wordcloud (Very Positive Sentiment)](wordcloud_5.png)
 
 ## Results (Data)
+
+
+
+## RF, Dataset V2, Undersampled, TF-IDF, MinMax Scaling, No Bigram, 2 Chain Qualifiers
+2025-05-12 18:40:24,037 [INFO] Best parameters from grid search: {'max_depth': 25, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 10, 'n_estimators': 600}
+2025-05-12 18:40:24,037 [INFO] Training complete for random_forest_classification.
+22025-05-12 18:40:24,282 [INFO] Accuracy: 0.6987
+2025-05-12 18:40:24,288 [INFO] Precision (macro): 0.6597
+2025-05-12 18:40:24,293 [INFO] Recall (macro): 0.7066
+2025-05-12 18:40:24,297 [INFO] F1 Score (macro): 0.6692
+
+## RF, Dataset V2, Undersampled, BOW, MinMax Scaling, No Bigram, 2 Chain Qualifiers
+2025-05-13 00:22:34,805 [INFO] Best parameters from grid search: {'max_depth': 25, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 15, 'n_estimators': 400}
+2025-05-13 00:22:34,805 [INFO] Training complete for random_forest_classification.
+2025-05-13 00:22:34,972 [INFO] Accuracy: 0.7056
+2025-05-13 00:22:34,980 [INFO] Precision (macro): 0.6645
+2025-05-13 00:22:34,982 [INFO] Recall (macro): 0.7053
+2025-05-13 00:22:34,985 [INFO] F1 Score (macro): 0.6735
+
+## RF, Dataset V2, Undersampled, spaCy, L2 Normalized, No Bigram, 2 Chain Qualifiers
+2025-05-14 02:48:05,389 [INFO] Best parameters from grid search: {'max_depth': 25, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 15, 'n_estimators': 600}
+2025-05-14 02:48:05,390 [INFO] Training complete for random_forest_classification.
+2025-05-14 02:48:06,035 [INFO] Accuracy: 0.5618
+2025-05-14 02:48:06,042 [INFO] Precision (macro): 0.5308
+2025-05-14 02:48:06,046 [INFO] Recall (macro): 0.5655
+2025-05-14 02:48:06,050 [INFO] F1 Score (macro): 0.5294
+
+
+## MNB, 3 Class, Dataset V2, Undersampled, TF-IDF, MinMax Scaling, No Bigram, 2 Chain Qualifiers
+2025-05-14 09:28:15,931 [INFO] Best parameters from grid search: {'alpha': 1.0}
+2025-05-14 09:28:15,931 [INFO] Training complete for multinomial_naive_bayes_classification.
+2025-05-14 09:28:15,954 [INFO] Accuracy: 0.7338
+2025-05-14 09:28:15,957 [INFO] Precision (macro): 0.6979
+2025-05-14 09:28:15,960 [INFO] Recall (macro): 0.7165
+2025-05-14 09:28:15,964 [INFO] F1 Score (macro): 0.7054
+
+
+## MNB, 5 Class, Dataset V2, Undersampled, TF-IDF, MinMax Scaling, No Bigram, 2 Chain Qualifiers
+2025-05-14 09:30:56,164 [INFO] Best parameters from grid search: {'alpha': 1.0}
+2025-05-14 09:30:56,164 [INFO] Training complete for multinomial_naive_bayes_classification
+2025-05-14 09:30:56,189 [INFO] Accuracy: 0.5261
+2025-05-14 09:30:56,194 [INFO] Precision (macro): 0.4551
+2025-05-14 09:30:56,198 [INFO] Recall (macro): 0.4623
+2025-05-14 09:30:56,203 [INFO] F1 Score (macro): 0.4465
 
 
 ## Dataset (V2) 8k

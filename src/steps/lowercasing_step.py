@@ -1,6 +1,8 @@
 import logging
 import string
 import re
+from datetime import datetime
+
 import unicodedata
 
 from core.step import Step
@@ -8,6 +10,10 @@ from core.step import Step
 
 class LowercasingStep(Step):
     name = "lowercasing_step"
+
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         """

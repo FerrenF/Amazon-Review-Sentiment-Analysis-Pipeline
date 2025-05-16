@@ -1,59 +1,106 @@
 import logging
 import subprocess
 import sys
-from typing import Optional, Any, Type
+from datetime import datetime
+from typing import Optional, Type, Tuple, Union
 
 import spacy
 import numpy as np
 import pandas as pd
+from scipy.sparse import csr_matrix
+
 from core.step import Step
 
 
 class SpacyVectorizationStep(Step):
     name = "spacy_vectorization"
 
-    def __init__(self, model="en_core_web_md", numeric_type: Type = np.float32, **model_kwargs):
+    def __init__(
+        self,
+        model: str = "en_core_web_md",
+        target_key: Union[str, Tuple[str, str]] = ("dataset", "text"),
+        output_key: Union[str, Tuple[str, str]] = ("dataset", "vector_ref"),
+        vector_key: Union[str, Tuple[str, str]] = "vector_data",
+        output_format: str = "sparse",  # or 'dense'
+        numeric_type: Type = np.float32,
+        **model_kwargs
+    ):
         """
-             Initializes a vectorization step using spacy. The default behavior of spacy's document vectorization is to
-             produce an average of the token vectors given by word embeddings.
+        Vectorizes text using spaCy and stores the result as either a sparse or dense matrix.
+        Each row in the dataset receives an index into the matrix.
 
-               :param model: The model to use (e.g. en_core_web_sm/en_core_web_md).
-               :param numeric_type: The numpy numeric type to case vector components to.
-               :param model_kwargs: Additional keyword arguments.
-               """
+        :param model: spaCy model to use.
+        :param target_key: Where to read text data from.
+        :param output_key: Where to store row indices pointing into the vector matrix.
+        :param vector_key: Where to store the actual matrix (dense or sparse).
+        :param output_format: 'sparse' or 'dense'.
+        :param numeric_type: NumPy dtype for vector array.
+        :param model_kwargs: Additional kwargs to pass to `spacy.load`.
+        """
         self.model = model
+        self.target_key = target_key
+        self.output_key = output_key
+        self.vector_key = vector_key
+        self.output_format = output_format.lower()
         self.numeric_type = numeric_type
+        self.model_kwargs = model_kwargs
+
+        if self.output_format not in {"sparse", "dense"}:
+            raise ValueError("`output_format` must be either 'sparse' or 'dense'.")
+
         try:
             self.nlp = spacy.load(model, **model_kwargs)
         except OSError:
-            print(f"spaCy model '{model}' not found. Installing...")
+            logging.warning(f"spaCy model '{model}' not found. Installing...")
             subprocess.check_call([sys.executable, "-m", "spacy", "download", model])
             self.nlp = spacy.load(model, **model_kwargs)
 
         self.vector_size = self.nlp.vocab.vectors_length
         if self.vector_size == 0:
             raise ValueError(
-                f"The spaCy model '{model}' does not have word vectors. "
-                f"Use 'en_core_web_md' or 'en_core_web_lg' for vectorization."
+                f"The spaCy model '{model}' does not provide word vectors. "
+                f"Use 'en_core_web_md' or 'en_core_web_lg'."
             )
 
+    def set_stats(self, data: dict):
+        data["stats"]["time"] += (self.name, datetime.now())
+        data["stats"]["vectorization"] = self.name
+
+    def _resolve_key(self, key: Union[str, Tuple[str, str]]):
+        return (None, key) if isinstance(key, str) else key
+
+    def _get_data_branch(self, data: dict, key: Union[str, Tuple[str, str]]):
+        root, branch = self._resolve_key(key)
+        return data[root][branch] if root else data[branch]
+
+    def _set_data_branch(self, data: dict, key: Union[str, Tuple[str, str]], value):
+        root, branch = self._resolve_key(key)
+        if root:
+            if root not in data:
+                data[root] = {}
+            data[root][branch] = value
+        else:
+            data[branch] = value
+
     def run(self, data: dict) -> dict:
-        """
-        Uses spaCy to convert text into dense vector representations.
-        Adds each vector component as a separate column to the DataFrame.
-        """
-        if "dataset" not in data:
-            raise ValueError("No dataset found in data.")
+        df = self._get_data_branch(data, self.target_key)
+        if df is None:
+            raise ValueError(f"Input text data not found at key: {self.target_key}")
 
-        df = data["dataset"]
-        texts = df["text"].fillna("").astype(str).tolist()
+        texts = df.fillna("").astype(str).tolist()
+        logging.info(f"Vectorizing {len(texts)} texts using spaCy.")
 
-        logging.info("Vectorizing text using spaCy with nlp.pipe (batched)...")
+        dense_vectors = np.zeros((len(texts), self.vector_size), dtype=self.numeric_type)
+        for i, doc in enumerate(self.nlp.pipe(texts, batch_size=32)):
+            dense_vectors[i] = doc.vector if doc.has_vector else 0
 
-        vectors = []
-        for doc in self.nlp.pipe(texts, batch_size=32):
-            vectors.append(doc.vector if doc.has_vector else np.zeros(self.vector_size, dtype=self.numeric_type))
+        if self.output_format == "sparse":
+            vector_matrix = csr_matrix(dense_vectors)
+        else:
+            vector_matrix = dense_vectors
 
-        df["vector"] = vectors
-        logging.info("Spacy vectorization complete.")
+        self._set_data_branch(data, self.vector_key, vector_matrix)
+        self._set_data_branch(data, self.output_key, list(range(len(texts))))
+
+        logging.info(f"Stored {self.output_format} matrix in {self.vector_key}, references in {self.output_key}")
         return data

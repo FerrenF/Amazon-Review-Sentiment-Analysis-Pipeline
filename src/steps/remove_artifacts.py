@@ -1,6 +1,8 @@
 import logging
 import string
 import re
+from datetime import datetime
+
 import unicodedata
 
 from core.step import Step
@@ -8,6 +10,9 @@ from core.step import Step
 
 class ArtifactRemovalStep(Step):
     name = "artifact_removal_step"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"] += (self.name, datetime.now())
 
     def run(self, data: dict) -> dict:
         """

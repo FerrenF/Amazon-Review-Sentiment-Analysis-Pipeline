@@ -1,9 +1,18 @@
 import logging
+from datetime import datetime
+
 import contractions
 from core.step import Step
 
 class ExpandContractionsStep(Step):
-    name = "expand_contractions"
+
+
+    def __init__(self):
+        self.name = "expand_contractions"
+        self.description = "Expands contractions (can't -> can not or cannot)."
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         """
@@ -14,15 +23,15 @@ class ExpandContractionsStep(Step):
 
         df = data["dataset"]
 
+        self.step_log(f'{self.friendly_name()} : {self.description}')
+
         def expand(text):
             if not isinstance(text, str):
                 return text
             return contractions.fix(text)
 
-        logging.info("Expanding contractions in 'title' and 'text' columns...")
         df["title"] = df["title"].apply(expand)
         df["text"] = df["text"].apply(expand)
 
         data["dataset"] = df
-        logging.info("Contractions expanded.")
         return data

@@ -1,9 +1,16 @@
+from datetime import datetime
+
 import spacy
 import logging
 from core.step import Step
 
 class ChainWordQualifiersStep(Step):
     name = "chain_qualifiers"
+    description = "Chains intensifying and negating words to nearby tokens for context."
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["qualifier_chaining"] = self.max_chain_length
 
     def __init__(self, model="en_core_web_sm", max_chain_length=2, targets=["text"], disable=["parser", "ner"]):
         self.nlp = spacy.load(model, disable=disable)
@@ -26,6 +33,8 @@ class ChainWordQualifiersStep(Step):
             raise ValueError("No dataset found in data.")
 
         df = data["dataset"]
+
+        self.step_log(f'{self.friendly_name()} : {self.description}')
 
         def chain_qualifiers(text):
             if not isinstance(text, str):
@@ -57,10 +66,9 @@ class ChainWordQualifiersStep(Step):
                     i += 1
             return " ".join(tokens)
 
-        logging.info(f"Chaining qualifiers in {','.join(self.targets)} (up to {self.max_chain_length} tokens)...")
+        self.step_log(f"Chaining qualifiers in {','.join(self.targets)} (up to {self.max_chain_length} tokens)...")
         for col in self.targets:
             if col in df.columns:
                 df[col] = df[col].apply(chain_qualifiers)
 
-        logging.info("Qualifier chaining complete.")
         return data

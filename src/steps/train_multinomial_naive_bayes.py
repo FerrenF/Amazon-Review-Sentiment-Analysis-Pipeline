@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
@@ -20,6 +22,10 @@ class MultinomialNaiveBayesClassificationStep(Step):
             "alpha": [0.1, 0.5, 1.0]  # Smoothing parameter
         }
         self.model = MultinomialNB(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Multinomial Naive Bayes"
 
     def run(self, data: dict) -> dict:
         if "dataset" not in data:

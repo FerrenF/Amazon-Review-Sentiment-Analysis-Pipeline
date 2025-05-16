@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from spellchecker import SpellChecker
 import logging
 import re
@@ -6,18 +8,27 @@ from core.step import Step
 class SpellCheckStep(Step):
     name = "spellcheck_step"
 
-    def __init__(self, max_distance = 2):
+    def __init__(self, max_distance = 2, target_keys = None):
+        """
+                  Removes some junk amazon uses to identify pictures and video IDs.
+
+                   :param target_keys: A string, tuple, or list of strings/tuples specifying where to find text to clean.
+                          Example: "text", ("dataset", "text"), ["title", ("dataset", "text")]
+              """
+        if target_keys is None:
+            target_keys = [("dataset", "text"), ("dataset", "title")]
         self.max_distance = max_distance
+        self.target_keys = target_keys
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["spellcheck_distance"] = self.max_distance
 
     def run(self, data: dict) -> dict:
         """
-        Corrects spelling in 'title' and 'text' fields using pyspellchecker.
-        Preserves punctuation, contractions, and compound words with hyphens.
+            Corrects spelling in 'title' and 'text' fields using pyspellchecker.
+            Preserves punctuation, contractions, and compound words with hyphens.
         """
-        if "dataset" not in data:
-            raise ValueError("No dataset found in data. Ensure LoadDatasetStep ran successfully.")
-
-        df = data["dataset"]
         spell = SpellChecker(distance=self.max_distance)
 
         def correct_sentence(sentence: str) -> str:
@@ -58,10 +69,12 @@ class SpellCheckStep(Step):
 
             return text.strip()
 
-        logging.info("Spellchecking 'title' and 'text' columns with punctuation preservation...")
-        df["title"] = df["title"].apply(correct_sentence)
-        df["text"] = df["text"].apply(correct_sentence)
+        self.step_log(f"Spellchecking: {self.target_keys}")
 
-        data["dataset"] = df
-        logging.info("Spellcheck (with punctuation safe mode) complete.")
+        for key in self.target_keys:
+            if isinstance(key, tuple):
+                data[key[0]][key[1]] =  data[key[0]][key[1]].apply(correct_sentence)
+            if isinstance(key, str):
+                data[key] = data[key].apply(correct_sentence)
+
         return data

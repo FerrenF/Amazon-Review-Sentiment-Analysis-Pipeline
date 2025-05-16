@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from sklearn.linear_model import Lasso
 from core.step import Step
@@ -9,6 +10,10 @@ class LassoRegressionStep(Step):
 
     def __init__(self, **params):
         self.model = Lasso(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Lasso Regression"
 
     def run(self, data: dict) -> dict:
         """

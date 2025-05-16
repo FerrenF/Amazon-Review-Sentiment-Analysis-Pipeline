@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -10,6 +11,10 @@ class LinearRegressionStep(Step):
     name = "linear_regression"
     def __init__(self, **params):
         self.model = LinearRegression(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"]= "Linear Regression"
 
     def run(self, data: dict) -> dict:
         """

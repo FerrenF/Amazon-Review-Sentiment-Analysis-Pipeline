@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pandas as pd
 import numpy as np
 import re
@@ -8,6 +10,9 @@ class UnflattenVectorColumnsStep(Step):
 
     def __init__(self, prefix="vec_"):
         self.prefix = prefix
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         """

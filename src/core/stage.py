@@ -4,6 +4,8 @@ from .step import Step
 
 
 class Stage:
+    output_path: str
+
     def __init__(
         self,
         name: str,
@@ -20,6 +22,13 @@ class Stage:
         self.steps = steps
         self.on_complete = on_complete
 
+    def stage_log(self, message, messg_type="info"):
+        if messg_type == "info":
+            logging.info(f"# STAGE {self.name}: '{message}'.")
+        elif messg_type == "warning":
+            logging.warning(message)
+        elif messg_type == "error":
+            logging.error(message)
 
     def is_skipping(self, data: dict) -> bool:
         skip_to = data.get("skip_to_stage", None)
@@ -41,17 +50,18 @@ class Stage:
 
 
         if self.is_skipping(data):
-            logging.info(f"Skipping stage '{self.name}' due to checkpoint load.")
+            self.stage_log(f"SKIP '{self.name}' due to checkpoint load.")
             return data
 
-        print(f"=== Running stage: {self.name} ===")
-
+        self.stage_log(f"BEGIN")
 
         for step in self.steps:
             if self.is_skipping(data):
                 return data
-            print(f"> Running step: {step.__class__.__name__}")
+            self.stage_log(f"STEP BEGIN: {step.__class__.__name__}")
+            step.set_stats(data)
             data = step.run(data)
+            self.stage_log(f"STEP COMPLETE: {step.__class__.__name__}")
 
         if self.on_complete:
             self.on_complete(self, data)

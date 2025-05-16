@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 from core.step import Step
@@ -8,6 +10,10 @@ class RandomForestRegressionStep(Step):
     name = "random_forest_regression"
     def __init__(self, **params):
         self.model = RandomForestRegressor(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Random Forest Regressor"
 
     def run(self, data: dict) -> dict:
         """

@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 from core.step import Step
@@ -6,6 +8,10 @@ from core.step import Step
 
 class KNearestNeighborsClassificationStep(Step):
     name = "k_nearest_neighbors_classification"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "KNN"
 
     def __init__(self, grid_search: bool = False, param_grid: dict = None, **params):
         """

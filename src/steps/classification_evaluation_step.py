@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 from typing import List, Optional
 
 import numpy as np
@@ -15,6 +16,10 @@ from core.step import Step
 
 class ClassificationEvaluationStep(Step):
     name = "classification_evaluation"
+    description = "Performs evaluation on classification task"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def __init__(self, metrics: Optional[List[str]] = None, average: str = "macro"):
         """
@@ -25,6 +30,7 @@ class ClassificationEvaluationStep(Step):
         self.average = average
 
     def run(self, data: dict) -> dict:
+
         if "model" not in data:
             raise ValueError("No model found in the data dictionary.")
         if "X_test" not in data or "y_test" not in data:
@@ -34,7 +40,7 @@ class ClassificationEvaluationStep(Step):
         X_test = data["X_test"]
         y_test = data["y_test"]
 
-        logging.info("Evaluating classification model...")
+        self.step_log(f'{self.friendly_name()} : {self.description}')
         y_pred = model.predict(X_test)
 
         results = {}
@@ -42,32 +48,32 @@ class ClassificationEvaluationStep(Step):
         if "accuracy" in self.metrics:
             acc = accuracy_score(y_test, y_pred)
             results["accuracy"] = acc
-            logging.info(f"Accuracy: {acc:.4f}")
+            self.step_log(f"Accuracy: {acc:.4f}")
 
         if "precision" in self.metrics:
             prec = precision_score(y_test, y_pred, average=self.average, zero_division=0)
             results["precision"] = prec
-            logging.info(f"Precision ({self.average}): {prec:.4f}")
+            self.step_log(f"Precision ({self.average}): {prec:.4f}")
 
         if "recall" in self.metrics:
             rec = recall_score(y_test, y_pred, average=self.average, zero_division=0)
             results["recall"] = rec
-            logging.info(f"Recall ({self.average}): {rec:.4f}")
+            self.step_log(f"Recall ({self.average}): {rec:.4f}")
 
         if "f1" in self.metrics:
             f1 = f1_score(y_test, y_pred, average=self.average, zero_division=0)
             results["f1"] = f1
-            logging.info(f"F1 Score ({self.average}): {f1:.4f}")
+            self.step_log(f"F1 Score ({self.average}): {f1:.4f}")
 
         if "confusion_matrix" in self.metrics:
             cm = confusion_matrix(y_test, y_pred)
             results["confusion_matrix"] = cm.tolist()
-            logging.info(f"Confusion Matrix:\n{cm}")
+            self.step_log(f"Confusion Matrix:\n{cm}")
 
         if "report" in self.metrics:
             report = classification_report(y_test, y_pred, zero_division=0, output_dict=True)
             results["classification_report"] = report
-            logging.info("Classification Report:\n" + classification_report(y_test, y_pred, zero_division=0))
+            self.step_log("Classification Report:\n" + classification_report(y_test, y_pred, zero_division=0))
 
-        data["evaluation_results"] = results
+        data["stats"]["evaluation_results"] = results
         return data

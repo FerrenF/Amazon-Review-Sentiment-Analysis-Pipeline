@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.model_selection import train_test_split
 from core.step import Step
 
@@ -21,6 +23,10 @@ class TrainTestSplitStep(Step):
         self.target_x = target_x
         self.target_y = target_y
         self.text_key = text_key
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["stratified"] = "Yes" if self. perform_stratification else "No"
 
     def run(self, data: dict) -> dict:
         """
@@ -60,5 +66,7 @@ class TrainTestSplitStep(Step):
         data["y_train"] = y_train
         data["y_test"] = y_test
 
-        logging.info(f"Train/test split complete. Train size: {len(y_train)}, Test size: {len(y_test)}")
+        self.step_log(f"Train size: {len(y_train)}, Test size: {len(y_test)}")
+        data['stats']['test_size'] = len(y_test)
+        data['stats']['train_size'] = len(y_train)
         return data

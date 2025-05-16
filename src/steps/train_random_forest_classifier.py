@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
@@ -23,6 +25,10 @@ class RandomForestClassificationStep(Step):
             "min_samples_split": [2, 5],
         }
         self.model = RandomForestClassifier(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Random Forest Classifier"
 
     def run(self, data: dict) -> dict:
         if "dataset" not in data:

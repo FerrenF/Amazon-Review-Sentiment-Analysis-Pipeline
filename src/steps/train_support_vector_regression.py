@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.svm import SVR
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
@@ -25,6 +27,9 @@ class SupportVectorRegressionStep(Step):
             'gamma': ['scale', 'auto', 0.01, 0.1],
             'kernel': ['rbf', 'poly']  # Optionally add 'linear' if linearity is suspected
         }
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
 

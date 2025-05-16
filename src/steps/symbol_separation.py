@@ -1,9 +1,14 @@
+from datetime import datetime
+
 import regex
 import logging
 from core.step import Step
 
 class SymbolSeparationStep(Step):
     name = "separate_symbols"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         if "dataset" not in data:
@@ -26,7 +31,7 @@ class SymbolSeparationStep(Step):
         df["symbols"] = df.apply(extract_all_symbols, axis=1)
         df["symbols"] = df["symbols"].astype("string")
 
-        df[["title", "text", "symbols"]].head(1000).to_csv("symbols_debug_sample.txt", index=False)
+       # df[["title", "text", "symbols"]].head(1000).to_csv("symbols_debug_sample.txt", index=False)
         logging.info("Symbols successfully extracted into the 'symbols' column.")
         data["dataset"] = df
         return data

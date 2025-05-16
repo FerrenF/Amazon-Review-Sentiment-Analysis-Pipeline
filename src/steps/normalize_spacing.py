@@ -1,9 +1,15 @@
 import re
+from datetime import datetime
+
 from core.step import Step
 import logging
 
 class NormalizeSpacingStep(Step):
     name = "quote_apostrophe_spacing_fix"
+    description = "Apostrophe's spacing fix"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         if "dataset" not in data:
@@ -17,7 +23,7 @@ class NormalizeSpacingStep(Step):
             text = re.sub(r"\s+(['\"])", r"\1", text)  # s ' → s'
             return text
 
-        logging.info("Fixing spacing around quotes and apostrophes...")
+        self.step_log("Fixing spacing around quotes and apostrophes...")
         df = data["dataset"]
         df["title"] = df["title"].apply(fix_spacing)
         df["text"] = df["text"].apply(fix_spacing)

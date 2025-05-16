@@ -14,12 +14,12 @@ OUTPUT_RAW_PATH = "./data/books_data/"
 DATA_DIR = PROJECT_ROOT / "data"
 UNPROCESSED_DATA_DIR = DATA_DIR / "unprocessed"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
+OUTPUT_DATA_DIR = PROJECT_ROOT / "output"
 
 UNPROCESSED_EXT = ".jsonl"
 PROCESSED_EXT = ".parquet"
 
-# Logging
-logging.basicConfig(
-    level=logging.INFO,  # Can be DEBUG, INFO, WARNING, ERROR, CRITICAL
-    format='%(asctime)s [%(levelname)s] %(message)s',
-)
+LOGGING_NAME = "_log.txt"
+
+PIPELINE_NAME = "amzn_review_sentiment"
+

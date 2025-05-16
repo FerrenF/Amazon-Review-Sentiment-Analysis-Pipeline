@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from sklearn.linear_model import Ridge
 from core.step import Step
@@ -9,6 +10,10 @@ class RidgeRegressionStep(Step):
 
     def __init__(self, **params):
         self.model = Ridge(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Ridge Regression"
 
     def run(self, data: dict) -> dict:
         """

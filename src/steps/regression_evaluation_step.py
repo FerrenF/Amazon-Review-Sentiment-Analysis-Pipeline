@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -11,6 +12,10 @@ class RegressionEvaluationStep(Step):
         if metrics is None:
             metrics = ["mse"]
         self.metrics = metrics
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"] += (self.name, datetime.now())
+
 
     def run(self, data: dict) -> dict:
         """

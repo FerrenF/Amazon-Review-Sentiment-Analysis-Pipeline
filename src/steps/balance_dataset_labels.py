@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 import pandas as pd
 from sklearn.utils import resample
 from core.step import Step
@@ -8,12 +10,14 @@ class BalanceLabelsStep(Step):
 
     def __init__(self, sample_method: str = "undersample", targets="dataset", text_col = None, oversample_cap: int = None):
         """
-           Initializes dataset balancing through understampling or oversampling. Optionally, cap oversampled methods at a certain number.
+           Initializes a step targetting dataset balance through the practice of either understampling or oversampling.
+            Optionally, cap oversampling at a certain number as to not completely overwhelm a label.
 
            :param sample_method: The balancing type. "undersample" or "oversample".
-           :param targets: The target key of the passed in data which contains the data.
-           :param oversample_cap: Cap oversampled data points to reduce the chance of class dominance.
+           :param targets: The target key of the passed data object which contains the data to be balanced.
+           :param oversample_cap: Cap oversampling data points to reduce the chance of extreme class dominance.
            """
+
         self.method = sample_method
         self.oversample_cap = oversample_cap
         self.text_col = text_col
@@ -21,11 +25,15 @@ class BalanceLabelsStep(Step):
             raise ValueError("Targets parameter must be a tuple containing two values.")
         self.target_x, self.target_y = targets
 
+    def set_stats(self, data:dict):
+        data["stats"]["time"] += (self.name, datetime.now())
+        data["stats"]["balancing"] = self.method + (("_" + self.oversample_cap) if self.oversample_cap is not None else "")
+
     def run(self, data: dict) -> dict:
         if self.target_x not in data or self.target_y not in data:
             raise ValueError(f"Expected keys {self.target_x} and {self.target_y} in data.")
 
-        logging.info(f"Performing label balancing on [{self.target_x}] using '{self.method}' method...")
+        self.step_log(f"Performing label balancing on [{self.target_x}] using '{self.method}' method...")
 
         X_train = data[self.target_x]
         y_train = data[self.target_y]
@@ -33,7 +41,7 @@ class BalanceLabelsStep(Step):
         # Get label counts
         from collections import Counter
         counts = Counter(y_train)
-        logging.info(f"Label counts before balancing: \n{counts}")
+        self.step_log(f"Label counts before balancing: \n{counts}")
 
         min_size = min(counts.values())
         max_size = max(counts.values())
@@ -66,10 +74,11 @@ class BalanceLabelsStep(Step):
         else:
             y_resampled = [y_train[i] for i in sampled_indices]
 
-        logging.info(f"Label balancing complete using {self.method} method.")
+        self.step_log(f"Before {self.method} method:")
         counts_after = Counter(y_resampled)
-        logging.info(f"Label counts after balancing: \n{counts_after}")
+        self.step_log(f"After: \n{counts_after}")
 
+        data["stats"]["balance_count"] = counts_after
         data[self.target_x] = X_resampled
         data[self.target_y] = y_resampled
 

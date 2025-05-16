@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from core.step import Step
@@ -23,6 +25,10 @@ class SupportVectorClassificationStep(Step):
             "gamma": ["scale", "auto"]
         }
         self.model = SVC(**params)
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Support Vector Classifier"
 
     def run(self, data: dict) -> dict:
         if "dataset" not in data:

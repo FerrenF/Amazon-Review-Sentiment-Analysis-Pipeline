@@ -1,5 +1,6 @@
 import json
 import pathlib
+from datetime import datetime
 
 from core.step import Step
 from common.project_common import *
@@ -11,6 +12,9 @@ import pandas as pd
 
 class LoadDatasetStep(Step):
     name = "load_dataset"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         """
@@ -65,7 +69,7 @@ class LoadDatasetStep(Step):
 
                         rows.append([j_line['label'], j_line['rating'], j_line['title'], j_line['text']])
 
-                logging.info(f"{len(rows)} lines loaded from file. Adding to dataset.")
+                self.step_log(f"{len(rows)} lines loaded from file. Adding to dataset.")
 
                 # Make a new dataframe with appropriate types on the first occurance.
                 if out_dataset is None:
@@ -73,7 +77,8 @@ class LoadDatasetStep(Step):
                     out_dataset.astype(dtypes)
                 else:
                     out_dataset = pd.concat([out_dataset, pd.DataFrame(data=rows, columns=cols)])
+                data["stats"]["beginning_count"] = len(out_dataset)
 
         data["dataset"] = out_dataset
-        logging.info(f"Total {out_dataset.shape[0]} entries in dataset.")
+        self.step_log(f"Total {out_dataset.shape[0]} entries in dataset.")
         return data

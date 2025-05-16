@@ -1,9 +1,14 @@
 import re
 import logging
+from datetime import datetime
+
 from core.step import Step
 
 class RemoveHTMLTagsStep(Step):
     name = "remove_html_tags"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
 
     def run(self, data: dict) -> dict:
         """

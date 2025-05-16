@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
@@ -7,6 +9,10 @@ from core.step import Step
 
 class GaussNaiveBayesClassificationStep(Step):
     name = "gauss_naive_bayes_classification"
+
+    def set_stats(self, data: dict):
+        data["stats"]["time"].append((self.name, datetime.now()))
+        data["stats"]["model"] = "Gauss Naive Bayes"
 
     def __init__(self, grid_search: bool = False, param_grid: dict = None, **params):
         """
