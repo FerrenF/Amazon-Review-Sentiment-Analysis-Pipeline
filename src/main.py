@@ -122,9 +122,9 @@ project_stages = [
         SpacyTokenizationStep(model="en_core_web_sm", remove_stops=False, use_lemmas=True, disable=["parser", "ner"]),
         ChainWordQualifiersStep(model="en_core_web_sm", max_chain_length={
             "intensifier": '2',
-            "positives": '2',
+            "qualifier": '2',
             "negator": '2',
-        }, targets=["text"], disable=["parser", "ner"]),
+        }, target_keys=[("dataset","text")], disable=["parser", "ner"]),
         RemoveStopWordsStep(),
         #TfidfVectorizationStep(target_key=("dataset","text"), output_key=("vectors", "sparse")),
         #BagOfWordsVectorizationStep(target_key=("dataset","text"), output_key=("vectors","sparse")),
