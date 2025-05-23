@@ -91,4 +91,4 @@ def compare_labels_in_directory(directory):
 
 # Example usage
 if __name__ == "__main__":
-    compare_labels_in_directory("./dataset_v2_labelled")
+    compare_labels_in_directory("./dataset_v3_labelled")

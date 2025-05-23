@@ -56,7 +56,7 @@ lr_param_grid = {
         }
 lr_param_grid_best_7700 = {'C': [1], 'max_iter': [100], 'penalty': ['l2'], 'solver': ['saga']}
 rf_classifier_best_7700 = {'max_depth': [25], 'max_features': ['sqrt'], 'min_samples_leaf': [1], 'min_samples_split': [15], 'n_estimators': [350]}
-rf_classifier_best_20k = {'max_depth': [25], 'min_samples_leaf': [1], 'min_samples_split': [5], 'n_estimators': [400]}
+rf_classifier_best_20k = {'max_depth': None, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 15, 'n_estimators': 600}
 knn_param_grid = {
             "n_neighbors": [2, 3, 5, 10],
             "weights": ["distance"],
@@ -74,7 +74,7 @@ project_stages = [
         # LoadCheckpointIfExists:
         # Load data from a previous run's checkpoint and then skip to the next appropriate stage in the pipeline.
         # LoadCheckpointIfExists("cleaning", "data", is_pickle=False),
-         LoadCheckpointIfExists(stage_name="processing", checkpoint_dir=PROCESSED_DATA_DIR, checkpoint_basename="data_processing"),
+         LoadCheckpointIfExists(stage_name="cleaning", checkpoint_dir=PROCESSED_DATA_DIR),
         # CleanDatasetStep:
         # Delete data from the previous run if we aren't using checkpoints.
 
@@ -120,16 +120,18 @@ project_stages = [
         # When processing our cleaned data, it is time to remove stopwords if needed, chain negations, lemmatize, tokenize,
         # perform analysis of, and extract numeric features from the text.
         SpacyTokenizationStep(model="en_core_web_sm", remove_stops=False, use_lemmas=True, disable=["parser", "ner"]),
-        ChainWordQualifiersStep(model="en_core_web_sm", max_chain_length={
-            "intensifier": '2',
-            "qualifier": '2',
-            "negator": '2',
-        }, target_keys=[("dataset","text")], disable=["parser", "ner"]),
+        ChainWordQualifiersStep(model="en_core_web_sm", max_chain_length=2
+       #                        {
+       #    "intensifier": '2',
+       #     "qualifier": '2',
+       #     "negator": '2',
+       # }
+                                    , disable=["parser", "ner"]),
         RemoveStopWordsStep(),
-        #TfidfVectorizationStep(target_key=("dataset","text"), output_key=("vectors", "sparse")),
+        TfidfVectorizationStep(target_key=("dataset","text"), output_key=("vectors", "sparse")),
         #BagOfWordsVectorizationStep(target_key=("dataset","text"), output_key=("vectors","sparse")),
-        SpacyVectorizationStep(model="en_core_web_md", target_key=("dataset","text"), vector_key=("vectors", "sparse"), output_format="sparse", output_key=("dataset","vectors")),
-        ScaleVectorsStep(target_column=("vectors","sparse"), output_column=("vectors","sparse")),
+        #SpacyVectorizationStep(model="en_core_web_md", target_key=("dataset","text"), vector_key=("vectors", "sparse"), output_format="sparse", output_key=("dataset","vectors")),
+        ScaleVectorsStep(target_column=("vectors","sparse"), output_column=("vectors","scaled")),
         #VectorNormalizationStep(output_format="sparse", vector_key=("vectors","sparse"), output_key=("vectors","normalized")),
 
     ],  on_complete=stage_finished_pickler_callback),
@@ -144,12 +146,12 @@ project_stages = [
 
         # Or we can drop it entirely:
 
-            DropLabelsStep(labels_to_drop=[2,4], target_key="label", vector_key=("vectors","sparse")),
+            DropLabelsStep(labels_to_drop=[2,4], target_key="label", vector_key=("vectors","scaled")),
 
 
         # Then we split the dataset up for holding out.
 
-            TrainTestSplitStep(test_size=0.2, random_state=42, target_x=("vectors","sparse"), target_y=("dataset","label"), text_key=("dataset","text")),
+            TrainTestSplitStep(test_size=0.2, random_state=42, target_x=("vectors","scaled"), target_y=("dataset","label"), text_key=("dataset","text")),
 
 
         # We may still need to perform label balancing. The difference in oversampling versus undersampling is great.
@@ -158,9 +160,9 @@ project_stages = [
             BalanceLabelsStep(sample_method="undersample", targets=("X_train", "y_train")),
 
         #GaussNaiveBayesClassificationStep(grid_search=True),
-        MultinomialNaiveBayesClassificationStep(grid_search=True),
+        #MultinomialNaiveBayesClassificationStep(grid_search=True),
         #KNearestNeighborsClassificationStep(grid_search=True, param_grid=knn_param_grid),
-        #RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_7700),
+        RandomForestClassificationStep(grid_search=True, param_grid=rf_classifier_best_20k),
         #LogisticRegressionStep(grid_search=True, param_grid=logistic_best_param_7707)
         #SupportVectorClassificationStep(grid_search=True, param_grid=svc_best_7700),
 
@@ -174,6 +176,8 @@ project_stages = [
 ]
 
 out_path = OUTPUT_DATA_DIR.joinpath(PIPELINE_NAME +datetime.datetime.now().strftime("_%Y_%m_%d_%H_%M_%S")+ LOGGING_NAME)
+pathlib.Path(out_path).parent.mkdir(parents=True, exist_ok=True)
+pathlib.Path(out_path).touch()
 
 logging.basicConfig(filename=out_path, filemode='a', format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s', level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler())

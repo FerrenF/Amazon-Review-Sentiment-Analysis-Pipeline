@@ -4,15 +4,16 @@ from datetime import datetime
 
 from core.step import Step
 from utils import load_dataset_from_pickle, load_dataset_from_parquet
-
+import pandas as pd
 
 class LoadCheckpointIfExists(Step):
-    def __init__(self, stage_name: str, checkpoint_dir: str = "processed", checkpoint_basename: str = "data_checkpoint"):
+    def __init__(self, stage_name: str, checkpoint_dir: str = "processed", checkpoint_basename: str = "data"):
         """
         Checks for a checkpoint file (pickle or parquet) and loads it into the pipeline.
 
+        :param stage name: The stage for which a checkpoint is being loaded.
         :param checkpoint_dir: Directory containing checkpoint files.
-        :param checkpoint_basename: Base name of the checkpoint file (without extension).
+        :param checkpoint_basename: Base name of the checkpoint file (without stage name extension).
         """
         self.name = f"load_checkpoint_{checkpoint_basename}"
         self.description = "Loads a previously saved checkpoint to resume the pipeline early if possible."
@@ -30,8 +31,8 @@ class LoadCheckpointIfExists(Step):
         }
 
     def run(self, data: dict) -> dict:
-        pkl_path = self.checkpoint_dir / f"{self.checkpoint_basename}.pkl"
-        parquet_path = self.checkpoint_dir / f"{self.checkpoint_basename}.parquet"
+        pkl_path = self.checkpoint_dir / f"{self.checkpoint_basename}_{self.stage_name}.pkl"
+        parquet_path = self.checkpoint_dir / f"{self.checkpoint_basename}_{self.stage_name}.parquet"
 
         checkpoint_path = None
         checkpoint_type = None
@@ -48,15 +49,10 @@ class LoadCheckpointIfExists(Step):
 
             try:
                 if checkpoint_type == "pickle":
-                    data = load_dataset_from_pickle(
-                        output_prefix=self.checkpoint_basename,
-                        data=data
-                    )
-                else:
-                    load_dataset_from_parquet(
-                        output_prefix=self.checkpoint_basename,
-                        data=data
-                    )
+                    with open(pkl_path, "rb") as f:
+                        data = pickle.load(f)
+                elif checkpoint_type == "parquet":                    
+                    data["dataset"] = pd.read_parquet(parquet_path, engine='pyarrow')                   
 
                 data["stats"]["checkpoint"]["checkpoint_type"] = checkpoint_type
                 data["stats"]["checkpoint"]["used_checkpoint"] = True
